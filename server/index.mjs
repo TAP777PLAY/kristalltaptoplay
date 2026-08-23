@@ -144,7 +144,12 @@ function clampInt(n, min, max) {
 
 function rankedList() {
   return Object.values(store.users)
-    .sort((a, b) => b.trophies - a.trophies || b.level - a.level || a.updatedAt - b.updatedAt);
+    .sort(
+      (a, b) =>
+        (b.level || 0) - (a.level || 0) ||
+        (b.trophies || 0) - (a.trophies || 0) ||
+        (a.updatedAt || 0) - (b.updatedAt || 0)
+    );
 }
 
 function publicRow(u, place) {

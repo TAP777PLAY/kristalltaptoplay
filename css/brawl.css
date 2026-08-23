@@ -1343,10 +1343,21 @@ body.has-vk-banner .shell {
 .rank-stats {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 8px;
   margin-top: 3px;
   font-size: 12px;
   opacity: .88;
+}
+.rank-level {
+  font-weight: 800;
+  font-size: 13px;
+  opacity: 1;
+  font-family: Syne, system-ui, sans-serif;
+}
+.rank-pts {
+  font-size: 11px;
+  opacity: .72;
 }
 .rank-ava {
   width: 32px;

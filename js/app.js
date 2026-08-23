@@ -277,6 +277,17 @@
     }];
   }
 
+  function sortRatingRows(rows) {
+    return rows
+      .slice()
+      .sort(
+        (a, b) =>
+          (b.level || 0) - (a.level || 0) ||
+          (b.trophies || 0) - (a.trophies || 0)
+      )
+      .map((r, i) => ({ ...r, place: i + 1 }));
+  }
+
   function rankHtml(rows, meId) {
     if (!rows.length) return '<p style="font-weight:800">Пока пусто — пройди уровень.</p>';
     return rows
@@ -285,13 +296,17 @@
         const ava = r.photo
           ? '<img class="rank-ava" src="' + esc(r.photo) + '" alt="" />'
           : '<span class="rank-ava empty"></span>';
-        const cups = r.trophies ?? r.score ?? 0;
+        const pts = r.trophies ?? r.score ?? 0;
+        const lvl = r.level || 1;
         return (
           '<div class="rank' + (mine ? " me" : "") + '">' +
             '<b class="rank-place">' + r.place + "</b>" + ava +
             '<div class="rank-meta">' +
               '<div class="rank-name" title="' + esc(r.name) + '">' + esc(r.name) + "</div>" +
-              '<div class="rank-stats"><span>Ур. ' + (r.level || 1) + "</span><span>Очки " + cups + "</span></div>" +
+              '<div class="rank-stats">' +
+                '<span class="rank-level">Уровень ' + lvl + "</span>" +
+                (pts > 0 ? '<span class="rank-pts">Очки ' + pts + "</span>" : "") +
+              "</div>" +
             "</div>" +
           "</div>"
         );
@@ -319,11 +334,11 @@
       rows.push(remote.me);
     }
     const hasMe = (id) => Number(id) > 0 && rows.some((r) => Number(r.id) === Number(id));
-    if (local.length && !hasMe(meId) && !hasMe(local[0].id) && !rows.some((r) => r.name === local[0].name && Number(r.trophies) === Number(local[0].trophies))) {
-      rows = rows.concat(local.map((r) => ({ ...r, place: rows.length + 1 })));
+    if (local.length && !hasMe(meId) && !hasMe(local[0].id) && !rows.some((r) => r.name === local[0].name && Number(r.level) === Number(local[0].level))) {
+      rows = rows.concat(local);
     }
     if (!rows.length) rows = local;
-    return rows;
+    return sortRatingRows(rows);
   }
 
   function submitNote(sent) {
@@ -1343,7 +1358,7 @@
     Sfx.startMusic(save.musicIndex || 0);
     Sfx.setMusic(save.music !== false);
 
-    const res = await fetch("levels/pack.json?v=64");
+    const res = await fetch("levels/pack.json?v=65");
     pack = await res.json();
     try {
       const tutRes = await fetch("levels/tutorial.json");

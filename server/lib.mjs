@@ -123,8 +123,8 @@ export function rankedList(users) {
     .filter((u) => u && Number(u.id) > 0)
     .sort(
       (a, b) =>
-        (b.trophies || 0) - (a.trophies || 0) ||
         (b.level || 0) - (a.level || 0) ||
+        (b.trophies || 0) - (a.trophies || 0) ||
         (a.updatedAt || 0) - (b.updatedAt || 0)
     );
 }

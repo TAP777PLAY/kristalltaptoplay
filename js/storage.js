@@ -36,7 +36,7 @@
 
   function addScore(data, entry) {
     data.scores = [entry, ...(data.scores || [])].slice(0, 30);
-    data.scores.sort((a, b) => b.trophies - a.trophies || b.score - a.score);
+    data.scores.sort((a, b) => (b.level || 0) - (a.level || 0) || (b.trophies || 0) - (a.trophies || 0) || (b.score || 0) - (a.score || 0));
   }
 
   global.Save = { load, save, addScore, defaults };
