@@ -1313,14 +1313,14 @@ body.has-vk-banner .shell {
 .list { display: flex; flex-direction: column; gap: 8px; overflow: auto; overflow-x: hidden; padding: 4px; min-width: 0; }
 .rank {
   display: grid;
-  grid-template-columns: 22px 32px minmax(0, 1fr);
+  grid-template-columns: 24px 34px minmax(0, 1fr);
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   min-width: 0;
   background: var(--glass-bg);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 8px 10px;
+  padding: 9px 10px;
   font-weight: 600;
   color: #f4f0ff;
   backdrop-filter: blur(8px);
@@ -1331,42 +1331,84 @@ body.has-vk-banner .shell {
   border-color: rgba(232, 120, 255, .65);
   box-shadow: var(--glow-mag);
 }
-.rank-place { font-size: 14px; text-align: center; }
+.rank-place {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  line-height: 1;
+}
 .rank-meta { min-width: 0; }
 .rank-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 13px;
-  line-height: 1.2;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.01em;
 }
 .rank-stats {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2px 8px;
+  margin-top: 4px;
+}
+.rank-stat {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
-  margin-top: 3px;
-  font-size: 12px;
-  opacity: .88;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
 }
-.rank-level {
+.rank-stat--pts { align-items: flex-end; text-align: right; }
+.rank-stat-label {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(184, 168, 216, .85);
+  line-height: 1.2;
+}
+.rank.me .rank-stat-label { color: rgba(255, 255, 255, .78); }
+.rank-stat-val {
+  font-family: var(--font-display);
   font-weight: 800;
-  font-size: 13px;
-  opacity: 1;
-  font-family: Syne, system-ui, sans-serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  line-height: 1.05;
+  white-space: nowrap;
 }
-.rank-pts {
-  font-size: 11px;
-  opacity: .72;
+.rank-stat--level .rank-stat-val {
+  font-size: 17px;
+  color: #fff;
+  text-shadow: 0 0 14px rgba(217, 70, 239, .35);
+}
+.rank.me .rank-stat--level .rank-stat-val { text-shadow: none; }
+.rank-stat--pts .rank-stat-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(244, 240, 255, .9);
+}
+.rank-empty {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  line-height: 1.35;
 }
 .rank-ava {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1.5px solid rgba(77, 184, 255, .4);
   object-fit: cover;
   background: #1c3d9a;
-  flex: 0 0 32px;
+  flex: 0 0 34px;
 }
 .rank-ava.empty { display: inline-block; }
 .profile-ava {
@@ -1378,6 +1420,80 @@ body.has-vk-banner .shell {
   background: #1c3d9a;
   box-shadow: 0 0 16px rgba(77, 184, 255, .25);
 }
+.desk-heading {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(217, 70, 239, .4);
+}
+.desk-heading--sm {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.desk-kicker {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  line-height: 1.3;
+}
+.desk-next-level {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 6px 0 0;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(244, 240, 255, .88);
+  line-height: 1.2;
+}
+.desk-next-num {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  text-shadow: 0 0 16px rgba(217, 70, 239, .4);
+  line-height: 1;
+}
+.desk-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: rgba(12, 8, 24, .55);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+.desk-chip-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.desk-chip b {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  line-height: 1;
+}
+.desk-rating-list { padding-right: 2px; }
 .home-ava {
   width: 36px;
   height: 36px;
@@ -1488,7 +1604,7 @@ body.has-vk-banner .shell {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 240px;
+    width: 258px;
     height: var(--stage-h);
     min-width: 0;
   }
@@ -1620,7 +1736,7 @@ body.has-vk-banner .shell {
   }
 }
 
-.vk-desktop .desktop-col { width: 240px; }
+.vk-desktop .desktop-col { width: 258px; }
 body.vk-desk .shell {
   grid-template-columns: 240px min-content;
   justify-content: center;
@@ -1634,7 +1750,7 @@ body.vk-desk .desktop-col {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 240px;
+  width: 258px;
   height: var(--stage-h);
   min-width: 0;
 }
@@ -1681,10 +1797,14 @@ body.vk-desk #screen-game .boost-btn { min-height: 36px; padding: 0 10px; font-s
 body.vk-desk #screen-game .boost-reward { min-height: 36px; min-width: 74px; font-size: 12px; }
 body.vk-desk #screen-game .board-wrap { padding: 6px 14px 12px; }
 .desk-name {
+  font-family: var(--font-ui);
+  font-size: 14px;
   font-weight: 700;
-  margin: 8px 0;
+  letter-spacing: -.01em;
+  margin: 10px 0 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #f4f0ff;
+  line-height: 1.25;
 }

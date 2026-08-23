@@ -69,7 +69,7 @@
     if ($("home-score")) $("home-score").textContent = save.trophies;
     if ($("desk-score")) $("desk-score").textContent = save.trophies;
     $("desk-name").textContent = save.name;
-    $("desk-next").textContent = "Уровень " + save.unlocked;
+    $("desk-next").innerHTML = '<span class="desk-next-label">Уровень</span> <b class="desk-next-num">' + save.unlocked + "</b>";
     setAva("desk-ava", save.photo);
     Sfx.set(save.sfx !== false);
     Sfx.setMusic(save.music !== false);
@@ -289,7 +289,7 @@
   }
 
   function rankHtml(rows, meId) {
-    if (!rows.length) return '<p style="font-weight:800">Пока пусто — пройди уровень.</p>';
+    if (!rows.length) return '<p class="rank-empty">Пока пусто — пройди уровень.</p>';
     return rows
       .map((r) => {
         const mine = (Number(r.id) > 0 && Number(meId) > 0 && Number(r.id) === Number(meId)) || (!r.id && r.name === save.name);
@@ -304,8 +304,16 @@
             '<div class="rank-meta">' +
               '<div class="rank-name" title="' + esc(r.name) + '">' + esc(r.name) + "</div>" +
               '<div class="rank-stats">' +
-                '<span class="rank-level">Уровень ' + lvl + "</span>" +
-                (pts > 0 ? '<span class="rank-pts">Очки ' + pts + "</span>" : "") +
+                '<div class="rank-stat rank-stat--level">' +
+                  '<span class="rank-stat-label">Уровень</span>' +
+                  '<span class="rank-stat-val">' + lvl + "</span>" +
+                "</div>" +
+                (pts > 0
+                  ? '<div class="rank-stat rank-stat--pts">' +
+                      '<span class="rank-stat-label">Очки</span>' +
+                      '<span class="rank-stat-val">' + pts + "</span>" +
+                    "</div>"
+                  : "") +
               "</div>" +
             "</div>" +
           "</div>"
@@ -1358,7 +1366,7 @@
     Sfx.startMusic(save.musicIndex || 0);
     Sfx.setMusic(save.music !== false);
 
-    const res = await fetch("levels/pack.json?v=65");
+    const res = await fetch("levels/pack.json?v=66");
     pack = await res.json();
     try {
       const tutRes = await fetch("levels/tutorial.json");
