@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Definitions for gradients and filters -->
+  <defs>
+    <!-- Background / Base Gradient (Rich Emerald Green) -->
+    <linearGradient id="baseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00ff66" />
+      <stop offset="100%" stop-color="#009933" />
+    </linearGradient>
+
+    <!-- Top Left Facet (Lightest Green for Volume) -->
+    <linearGradient id="topLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#33ff88" />
+      <stop offset="100%" stop-color="#00e65c" />
+    </linearGradient>
+
+    <!-- Bottom Right Facet (Deep Shadow Green) -->
+    <linearGradient id="bottomRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00802b" />
+      <stop offset="100%" stop-color="#004d1a" />
+    </linearGradient>
+
+    <!-- Main Front Face (Saturated Clear Green) -->
+    <linearGradient id="frontGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f260" />
+      <stop offset="100%" stop-color="#00b33c" />
+    </linearGradient>
+
+    <!-- Glossy Highlight Gradient (Soft White to Transparent) -->
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8" />
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Main Hexagonal Crystal Group centered in 256x256 -->
+  <g transform="translate(128, 128)">
+    
+    <!-- Outer Base / Silhouette Outline Structure -->
+    <polygon points="0,-95 82,-48 82,48 0,95 -82,48 -82,-48" fill="url(#baseGrad)" />
+
+    <!-- Top Left Facets -->
+    <polygon points="0,-95 0,-42 -82,-48" fill="url(#topLeftGrad)" />
+    <polygon points="-82,-48 0,-42 -45,0 -82,48" fill="url(#topLeftGrad)" opacity="0.85" />
+
+    <!-- Top Right Facets -->
+    <polygon points="0,-95 82,-48 0,-42" fill="#00e65c" />
+    <polygon points="82,-48 82,48 45,0 0,-42" fill="#00cc52" />
+
+    <!-- Bottom Left Facets -->
+    <polygon points="-82,48 -45,0 0,42 0,95" fill="url(#bottomRightGrad)" opacity="0.7" />
+
+    <!-- Bottom Right Facets -->
+    <polygon points="0,95 0,42 45,0 82,48" fill="url(#bottomRightGrad)" />
+
+    <!-- Central Front Cap (Hexagonal Inner Face for Premium 3D look) -->
+    <polygon points="0,-42 45,0 0,42 -45,0" fill="url(#frontGrad)" />
+
+    <!-- Soft White Glossy Highlight on Top-Left Edge -->
+    <polygon points="-15,-28 0,-42 20,-24 0,-10" fill="url(#glowGrad)" />
+    
+    <!-- Tiny Intense Core Sparkle Blik -->
+    <circle cx="-25" cy="-25" r="4" fill="#ffffff" opacity="0.9" />
+  </g>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Энергетическое свечение вокруг стрелки-ракеты -->
+    <radialGradient id="rocketGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#ffcc00" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ff3300" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Градиент корпуса (Золотой пиратский металл) -->
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff2a3"/>
+      <stop offset="30%" stop-color="#ffa200"/>
+      <stop offset="85%" stop-color="#b35900"/>
+      <stop offset="100%" stop-color="#4d2200"/>
+    </linearGradient>
+    <!-- Градиент наконечников (Огненно-красный) -->
+    <linearGradient id="tipGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff3300"/>
+      <stop offset="50%" stop-color="#ff9900"/>
+      <stop offset="100%" stop-color="#ff3300"/>
+    </linearGradient>
+    <!-- Контурная обводка -->
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#ffaa00"/>
+      <stop offset="100%" stop-color="#260f00"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(128, 128)">
+    <!-- Магическое свечение -->
+    <circle cx="0" cy="0" r="100" fill="url(#rocketGlow)"/>
+    
+    <!-- Внешний казуальный контур двойной стрелки -->
+    <polygon points="0,-110 -45,-60 -22,-60 -22,60 -45,60 0,110 45,60 22,60 22,-60 45,-60" fill="none" stroke="url(#strokeGrad)" stroke-width="12" stroke-linejoin="round"/>
+    
+    <!-- Основное тело стрелки -->
+    <polygon points="0,-105 -40,-58 -16,-58 -16,58 -40,58 0,105 40,58 16,58 16,-58 40,-58" fill="url(#bodyGrad)"/>
+    
+    <!-- Верхний наконечник (Ракета вверх) -->
+    <polygon points="0,-105 -40,-58 0,-58" fill="url(#tipGrad)" opacity="0.95"/>
+    <polygon points="0,-105 40,-58 0,-58" fill="#cc2400" opacity="0.9"/>
+    
+    <!-- Нижний наконечник (Ракета вниз) -->
+    <polygon points="0,105 -40,58 0,58" fill="url(#tipGrad)" opacity="0.95"/>
+    <polygon points="0,105 40,58 0,58" fill="#cc2400" opacity="0.9"/>
+    
+    <!-- Центральная разделяющая полоса/капсула -->
+    <rect x="-16" y="-25" width="32" height="50" rx="6" fill="#ffffff" opacity="0.25"/>
+    
+    <!-- Блики казуального стиля сверху -->
+    <path d="M -10,-50 Q -15,0 -10,50" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="-5" cy="-75" r="4" fill="#ffffff" opacity="0.9"/>
+    <circle cx="-5" cy="75" r="4" fill="#ffffff" opacity="0.9"/>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <radialGradient id="shGlow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#5cc8ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#1c5fd0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff2a8"/>
+      <stop offset="35%" stop-color="#ffb020"/>
+      <stop offset="85%" stop-color="#b35a00"/>
+      <stop offset="100%" stop-color="#4d2200"/>
+    </linearGradient>
+    <linearGradient id="shStroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#ffb020"/>
+      <stop offset="100%" stop-color="#2a1600"/>
+    </linearGradient>
+    <linearGradient id="shRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7de0ff"/>
+      <stop offset="50%" stop-color="#3d9cff"/>
+      <stop offset="100%" stop-color="#1a5fd0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="128" cy="128" r="108" fill="url(#shGlow)"/>
+  <g transform="translate(128 128)">
+    <!-- outer ring -->
+    <circle cx="0" cy="0" r="68" fill="none" stroke="url(#shStroke)" stroke-width="22" stroke-linecap="round"
+            stroke-dasharray="280 80" transform="rotate(-35)"/>
+    <circle cx="0" cy="0" r="68" fill="none" stroke="url(#shRing)" stroke-width="14" stroke-linecap="round"
+            stroke-dasharray="280 80" transform="rotate(-35)"/>
+    <!-- arrow tips -->
+    <polygon points="52,-88 88,-48 42,-52" fill="url(#shGold)" stroke="url(#shStroke)" stroke-width="7" stroke-linejoin="round"/>
+    <polygon points="-52,88 -88,48 -42,52" fill="url(#shGold)" stroke="url(#shStroke)" stroke-width="7" stroke-linejoin="round"/>
+    <!-- center gem spark -->
+    <circle cx="0" cy="0" r="18" fill="url(#shGold)" stroke="url(#shStroke)" stroke-width="5"/>
+    <circle cx="-4" cy="-5" r="5" fill="#fff" opacity="0.7"/>
+  </g>
+</svg>

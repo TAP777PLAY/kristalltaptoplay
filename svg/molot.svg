@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <radialGradient id="hmGlow" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="55%" stop-color="#ffd24a" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffd24a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hmSteel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8eef6"/>
+      <stop offset="35%" stop-color="#9aa6b8"/>
+      <stop offset="70%" stop-color="#4e5666"/>
+      <stop offset="100%" stop-color="#1c212b"/>
+    </linearGradient>
+    <linearGradient id="hmSteelHi" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="hmWood" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e0a060"/>
+      <stop offset="45%" stop-color="#b56a2e"/>
+      <stop offset="100%" stop-color="#6a3512"/>
+    </linearGradient>
+    <linearGradient id="hmGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff2a8"/>
+      <stop offset="45%" stop-color="#ffb020"/>
+      <stop offset="100%" stop-color="#b35a00"/>
+    </linearGradient>
+    <linearGradient id="hmStroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#ffb020"/>
+      <stop offset="100%" stop-color="#2a1600"/>
+    </linearGradient>
+  </defs>
+  <circle cx="128" cy="118" r="104" fill="url(#hmGlow)"/>
+  <g transform="translate(128 128) rotate(-28)">
+    <!-- handle -->
+    <rect x="-14" y="-8" width="28" height="118" rx="12" fill="none" stroke="url(#hmStroke)" stroke-width="10"/>
+    <rect x="-10" y="-4" width="20" height="110" rx="9" fill="url(#hmWood)"/>
+    <path d="M -4 8 L -4 96" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.35"/>
+    <!-- head -->
+    <path d="M -78 -58 L 62 -58 L 78 -18 L 62 22 L -78 22 L -92 -18 Z"
+          fill="none" stroke="url(#hmStroke)" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M -74 -52 L 58 -52 L 72 -18 L 58 16 L -74 16 L -86 -18 Z"
+          fill="url(#hmSteel)"/>
+    <path d="M -74 -52 L 58 -52 L 72 -18 L 20 -18 L 12 -52 Z"
+          fill="url(#hmSteelHi)" opacity="0.55"/>
+    <!-- gold band -->
+    <rect x="-28" y="-52" width="22" height="68" rx="5" fill="url(#hmGold)" stroke="url(#hmStroke)" stroke-width="4"/>
+    <circle cx="-17" cy="-18" r="5" fill="#fff" opacity="0.75"/>
+    <!-- tip glint -->
+    <path d="M 40 -40 Q 58 -18 40 4" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.45"/>
+  </g>
+</svg>

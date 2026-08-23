@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Background / Drop shadow glow of the gem itself for premium look -->
+    <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="80%" stop-color="#ff6ef0" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Base Jewel Gradient (Deep fuchsia to rich pink) -->
+    <linearGradient id="baseGrad" x1="30%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%" stop-color="#ffd6ff"/>
+      <stop offset="40%" stop-color="#ff6ef0"/>
+      <stop offset="85%" stop-color="#e818c8"/>
+      <stop offset="100%" stop-color="#8a0878"/>
+    </linearGradient>
+
+    <!-- Side Facet Gradients for 3D Volume -->
+    <linearGradient id="topFacet" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ff6ef0" stop-opacity="0.3"/>
+    </linearGradient>
+    
+    <linearGradient id="bottomFacet" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#c818a8"/>
+      <stop offset="100%" stop-color="#5a0848"/>
+    </linearGradient>
+
+    <linearGradient id="leftFacet" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#ffb6f5"/>
+      <stop offset="100%" stop-color="#ff7de8"/>
+    </linearGradient>
+
+    <linearGradient id="rightFacet" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#d84ab8"/>
+      <stop offset="100%" stop-color="#7a2868"/>
+    </linearGradient>
+
+    <!-- Main Juicy Gloss Highlight -->
+    <linearGradient id="mainHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+    </linearGradient>
+    
+    <!-- Stroke Gradient for Premium Cartoon Outline -->
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff0ff"/>
+      <stop offset="30%" stop-color="#ff9ef0"/>
+      <stop offset="70%" stop-color="#b01890"/>
+      <stop offset="100%" stop-color="#580848"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Group for centering and styling -->
+  <g transform="translate(0, 0)">
+    <!-- Ambient Inner Light Effect -->
+    <circle cx="128" cy="128" r="90" fill="url(#innerGlow)"/>
+
+    <!-- Outer Thick Premium Stroke / Dark Rim for Cartoon Style -->
+    <polygon points="128,34 212,82 212,174 128,222 44,174 44,82" 
+             fill="none" stroke="url(#strokeGrad)" stroke-width="10" stroke-linejoin="round"/>
+
+    <!-- Base Crystal Body -->
+    <polygon points="128,36 210,83 210,173 128,220 46,173 46,83" 
+             fill="url(#baseGrad)"/>
+
+    <!-- FACETS SYSTEM FOR LUXURY MATCH-3 LOOK -->
+    <!-- Center Table (The flat top hexagonal face) -->
+    <polygon points="128,70 178,98 178,158 128,186 78,158 78,98" 
+             fill="#ffa6f5" opacity="0.85"/>
+    
+    <!-- Top-Left Facet -->
+    <polygon points="128,36 128,70 78,98 46,83" fill="url(#topFacet)"/>
+    
+    <!-- Top-Right Facet -->
+    <polygon points="128,36 210,83 178,98 128,70" fill="url(#topFacet)" opacity="0.7"/>
+
+    <!-- Left Side Facet -->
+    <polygon points="46,83 78,98 78,158 46,173" fill="url(#leftFacet)"/>
+
+    <!-- Right Side Facet -->
+    <polygon points="210,83 210,173 178,158 178,98" fill="url(#rightFacet)"/>
+
+    <!-- Bottom-Left Facet -->
+    <polygon points="46,173 78,158 128,186 128,220" fill="url(#bottomFacet)"/>
+
+    <!-- Bottom-Right Facet -->
+    <polygon points="128,220 128,186 178,158 210,173" fill="url(#bottomFacet)"/>
+
+    <!-- Inner Crystal Brightening (Juicy Core Glow) -->
+    <polygon points="128,85 163,105 163,151 128,171 93,151 93,105" 
+             fill="#ffffff" opacity="0.25"/>
+
+    <!-- PREMIUM GLOSSY HIGHLIGHTS (PIXAR/CASUAL GAME STYLE) -->
+    <!-- Big Top-Left Curved Soft Highlight -->
+    <path d="M 58,90 Q 90,50 135,52 Q 110,85 85,95 Z" fill="url(#mainHighlight)"/>
+    
+    <!-- Sharp Corner Bling Point -->
+    <polygon points="128,70 145,73 128,76 125,73" fill="#ffffff" opacity="0.9"/>
+    <circle cx="78" cy="98" r="5" fill="#ffffff" opacity="0.8"/>
+    
+    <!-- Bottom Rim Reflection (Grounded Light) -->
+    <path d="M 60,165 Q 128,210 196,165 Q 128,195 60,165 Z" fill="#ffffff" opacity="0.25"/>
+  </g>
+</svg>

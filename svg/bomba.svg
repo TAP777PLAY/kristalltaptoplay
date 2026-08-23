@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <radialGradient id="bombGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7"/>
+      <stop offset="40%" stop-color="#ff9900" stop-opacity="0.4"/>
+      <stop offset="80%" stop-color="#ff3300" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ff3300" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bombBody" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#737982"/>
+      <stop offset="15%" stop-color="#3d434d"/>
+      <stop offset="70%" stop-color="#1c1f24"/>
+      <stop offset="100%" stop-color="#090a0c"/>
+    </radialGradient>
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#ffcc00"/>
+      <stop offset="70%" stop-color="#e65c00"/>
+      <stop offset="100%" stop-color="#260800"/>
+    </linearGradient>
+    <linearGradient id="fuseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2a3"/>
+      <stop offset="50%" stop-color="#ffa200"/>
+      <stop offset="100%" stop-color="#663300"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(128, 128)">
+    <circle cx="0" cy="0" r="110" fill="url(#bombGlow)"/>
+    <polygon points="15,-65 45,-45 30,-25 0,-45" fill="none" stroke="url(#strokeGrad)" stroke-width="12" stroke-linejoin="round"/>
+    <polygon points="17,-63 43,-47 28,-27 2,-43" fill="url(#fuseGrad)"/>
+    <path d="M 30,-55 Q 55,-75 45,-95 Q 65,-100 70,-115" fill="none" stroke="#e6a15c" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="70" cy="-115" r="14" fill="#ffffff"/>
+    <circle cx="70" cy="-115" r="8" fill="#ffcc00"/>
+    <circle cx="0" cy="10" r="85" fill="none" stroke="url(#strokeGrad)" stroke-width="12"/>
+    <circle cx="0" cy="10" r="83" fill="url(#bombBody)"/>
+    <path d="M -40,-20 L 40,40" fill="none" stroke="#8c94a0" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+    <path d="M -40,40 L 40,-20" fill="none" stroke="#8c94a0" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+    <circle cx="0" cy="0" r="22" fill="#8c94a0" opacity="0.85"/>
+    <rect x="-12" y="10" width="24" height="15" rx="3" fill="#8c94a0" opacity="0.85"/>
+    <circle cx="-9" cy="0" r="5" fill="#1c1f24"/>
+    <circle cx="9" cy="0" r="5" fill="#1c1f24"/>
+    <path d="M -6,16 L -6,24 M 0,14 L 0,25 M 6,16 L 6,24" fill="none" stroke="#1c1f24" stroke-width="3" stroke-linecap="round"/>
+    <path d="M -55,-25 Q -15,-55 25,-45 Q -15,-25 -55,-25" fill="#ffffff" opacity="0.35"/>
+    <circle cx="-35" cy="-25" r="5" fill="#ffffff" opacity="0.8"/>
+  </g>
+</svg>

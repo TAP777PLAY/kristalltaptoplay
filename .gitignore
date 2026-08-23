@@ -1,0 +1,19 @@
+# Секреты — никогда в репозиторий
+.env
+.env.*
+server/.env
+*.pem
+*.key
+
+# Зависимости
+node_modules/
+server/node_modules/
+
+# ОС и редактор
+.DS_Store
+Thumbs.db
+*.log
+.cursor/
+
+# Локальные артефакты
+.vercel/

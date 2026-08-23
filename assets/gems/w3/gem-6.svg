@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="80%" stop-color="#58ffe0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="baseGrad" x1="30%" y1="0%" x2="70%" y2="100%">
+      <stop offset="0%" stop-color="#a8fff2"/>
+      <stop offset="40%" stop-color="#58ffe0"/>
+      <stop offset="85%" stop-color="#14c2a4"/>
+      <stop offset="100%" stop-color="#097d69"/>
+    </linearGradient>
+    <linearGradient id="topFacet" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#58ffe0" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bottomFacet" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#0fa187"/>
+      <stop offset="100%" stop-color="#055244"/>
+    </linearGradient>
+    <linearGradient id="leftFacet" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#7dffe9"/>
+      <stop offset="100%" stop-color="#3bdbca"/>
+    </linearGradient>
+    <linearGradient id="rightFacet" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#26cba7"/>
+      <stop offset="100%" stop-color="#0f856d"/>
+    </linearGradient>
+    <linearGradient id="mainHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4fffa"/>
+      <stop offset="30%" stop-color="#3ce6cc"/>
+      <stop offset="70%" stop-color="#0a7d69"/>
+      <stop offset="100%" stop-color="#03332a"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(0, 0)">
+    <circle cx="128" cy="128" r="90" fill="url(#innerGlow)"/>
+    <polygon points="128,34 212,82 212,174 128,222 44,174 44,82" fill="none" stroke="url(#strokeGrad)" stroke-width="10" stroke-linejoin="round"/>
+    <polygon points="128,36 210,83 210,173 128,220 46,173 46,83" fill="url(#baseGrad)"/>
+    <polygon points="128,70 178,98 178,158 128,186 78,158 78,98" fill="#66ffe6" opacity="0.85"/>
+    <polygon points="128,36 128,70 78,98 46,83" fill="url(#topFacet)"/>
+    <polygon points="128,36 210,83 178,98 128,70" fill="url(#topFacet)" opacity="0.7"/>
+    <polygon points="46,83 78,98 78,158 46,173" fill="url(#leftFacet)"/>
+    <polygon points="210,83 210,173 178,158 178,98" fill="url(#rightFacet)"/>
+    <polygon points="46,173 78,158 128,186 128,220" fill="url(#bottomFacet)"/>
+    <polygon points="128,220 128,186 178,158 210,173" fill="url(#bottomFacet)"/>
+    <polygon points="128,85 163,105 163,151 128,171 93,151 93,105" fill="#ffffff" opacity="0.25"/>
+    <path d="M 58,90 Q 90,50 135,52 Q 110,85 85,95 Z" fill="url(#mainHighlight)"/>
+    <polygon points="128,70 145,73 128,76 125,73" fill="#ffffff" opacity="0.9"/>
+    <circle cx="78" cy="98" r="5" fill="#ffffff" opacity="0.8"/>
+    <path d="M 60,165 Q 128,210 196,165 Q 128,195 60,165 Z" fill="#ffffff" opacity="0.25"/>
+  </g>
+</svg>

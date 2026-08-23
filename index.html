@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Кристаллы три в ряд</title>
+    <meta name="theme-color" content="#05040c" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="icon" href="assets/gems/gem-2.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/brawl.css?v=63" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="desktop-col" id="side-left">
+        <div class="panel">
+          <h2 class="title" style="font-size:26px">Профиль</h2>
+          <img class="profile-ava" id="desk-ava" alt="" hidden />
+          <p id="desk-name" class="desk-name">Игрок</p>
+          <div class="chip" style="margin-top:8px">Очки <b id="desk-score">0</b></div>
+        </div>
+        <div class="panel">
+          <p style="font-weight:700;margin:0;color:#a8b4d8">Следующий уровень</p>
+          <p id="desk-next" style="font-weight:700;font-size:18px;margin:8px 0 0;font-family:Syne,system-ui,sans-serif;color:#fff">Уровень 1</p>
+        </div>
+        <div class="panel desk-top">
+          <h2 class="title" style="font-size:22px">Топ игроков</h2>
+          <div class="list" id="desk-rating"></div>
+        </div>
+      </aside>
+
+      <div class="stage-slot" id="stage-slot">
+      <div class="stage" id="stage">
+        <section class="screen active screen-home" id="screen-home">
+          <div class="home-bg" aria-hidden="true">
+            <div class="home-bg-art"></div>
+            <div class="home-bg-veil"></div>
+          </div>
+          <div class="hud-top">
+            <div class="chip">Уровень <b id="home-level">0</b></div>
+            <div class="chip">Очки <b id="home-score">0</b></div>
+            <button class="ico-btn on" id="home-sfx" type="button" title="Звук" aria-label="Звук">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 9v6h3.2L12 19.2V4.8L7.2 9H4z"></path>
+                <path class="wave" d="M15.2 8.2a4.4 4.4 0 0 1 0 7.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+                <path class="wave" d="M18 5.8a8 8 0 0 1 0 12.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+              </svg>
+            </button>
+            <button class="ico-btn on" id="home-music" type="button" title="Мелодия" aria-label="Мелодия">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 4v11.2a3.4 3.4 0 1 0 2.2 3.2V9.6L20 7.4V16a3.4 3.4 0 1 0 2.2 3.2V4.4L9 7.2V4z"></path>
+              </svg>
+            </button>
+            <button class="ico-btn" data-go="settings" type="button" title="Настройки" aria-label="Настройки">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 0 0 .12-.64l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.64l-2.03-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="hero">
+            <div class="hero-brand">
+              <h1 class="logo-title">
+                <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 360" role="img" aria-label="Кристаллы три в ряд. Соревнуйся с лучшими и займи место в рейтинге.">
+                  <defs>
+                    <linearGradient id="logoGemA" x1="18%" y1="8%" x2="82%" y2="92%">
+                      <stop offset="0%" stop-color="#fff7ff"/>
+                      <stop offset="28%" stop-color="#f0abfc"/>
+                      <stop offset="58%" stop-color="#d946ef"/>
+                      <stop offset="100%" stop-color="#7c3aed"/>
+                    </linearGradient>
+                    <linearGradient id="logoGemB" x1="20%" y1="0%" x2="80%" y2="100%">
+                      <stop offset="0%" stop-color="#ecfeff"/>
+                      <stop offset="40%" stop-color="#67e8f9"/>
+                      <stop offset="100%" stop-color="#0891b2"/>
+                    </linearGradient>
+                    <linearGradient id="logoGemC" x1="30%" y1="0%" x2="70%" y2="100%">
+                      <stop offset="0%" stop-color="#fdf4ff"/>
+                      <stop offset="45%" stop-color="#e879f9"/>
+                      <stop offset="100%" stop-color="#a21caf"/>
+                    </linearGradient>
+                    <linearGradient id="logoTitleFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#ffffff"/>
+                      <stop offset="35%" stop-color="#fce7ff"/>
+                      <stop offset="70%" stop-color="#e879f9"/>
+                      <stop offset="100%" stop-color="#c026d3"/>
+                    </linearGradient>
+                    <linearGradient id="logoSubFill" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#22d3ee"/>
+                      <stop offset="50%" stop-color="#e879f9"/>
+                      <stop offset="100%" stop-color="#a78bfa"/>
+                    </linearGradient>
+                    <linearGradient id="logoLeadFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#ffffff"/>
+                      <stop offset="55%" stop-color="#f3e8ff"/>
+                      <stop offset="100%" stop-color="#d8b4fe"/>
+                    </linearGradient>
+                    <linearGradient id="logoBanner" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="rgba(40,18,72,.92)"/>
+                      <stop offset="100%" stop-color="rgba(16,8,36,.96)"/>
+                    </linearGradient>
+                    <filter id="logoSoftGlow" x="-30%" y="-40%" width="160%" height="180%">
+                      <feGaussianBlur stdDeviation="4" result="b"/>
+                      <feMerge>
+                        <feMergeNode in="b"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <filter id="logoTitleShadow" x="-12%" y="-25%" width="124%" height="170%">
+                      <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#2a0840" flood-opacity=".8"/>
+                      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#d946ef" flood-opacity=".5"/>
+                    </filter>
+                    <filter id="logoLeadShadow" x="-10%" y="-30%" width="120%" height="180%">
+                      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#12081f" flood-opacity=".7"/>
+                      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#a855f7" flood-opacity=".35"/>
+                    </filter>
+                  </defs>
+                  <g transform="translate(370 52)" filter="url(#logoSoftGlow)">
+                    <g class="logo-gems">
+                      <path d="M0-42 L26-7 L16 30 L-16 30 L-26-7 Z" fill="url(#logoGemA)" stroke="#ffe9ff" stroke-width="2.2" stroke-linejoin="round"/>
+                      <path d="M0-42 L26-7 L0 2 L-26-7 Z" fill="rgba(255,255,255,.28)"/>
+                      <path d="M0 2 L16 30 L-16 30 Z" fill="rgba(88,28,135,.35)"/>
+                      <path d="M-2-26 L6-16 L0-4 L-10-14 Z" fill="rgba(255,255,255,.55)"/>
+                      <g transform="translate(-50 8) rotate(-18)">
+                        <path d="M0-24 L16-3 L9 20 L-9 20 L-16-3 Z" fill="url(#logoGemB)" stroke="#dffcff" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M0-24 L16-3 L0 2 L-16-3 Z" fill="rgba(255,255,255,.25)"/>
+                      </g>
+                      <g transform="translate(50 10) rotate(16)">
+                        <path d="M0-22 L14-2 L8 18 L-8 18 L-14-2 Z" fill="url(#logoGemC)" stroke="#ffd6ff" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M0-22 L14-2 L0 2 L-14-2 Z" fill="rgba(255,255,255,.22)"/>
+                      </g>
+                      <circle class="logo-spark" cx="-66" cy="-6" r="2.2" fill="#fff" opacity=".9"/>
+                      <circle class="logo-spark s2" cx="70" cy="0" r="1.8" fill="#fff" opacity=".75"/>
+                      <circle class="logo-spark s3" cx="6" cy="-52" r="1.6" fill="#fff" opacity=".8"/>
+                    </g>
+                  </g>
+                  <g filter="url(#logoTitleShadow)" text-anchor="middle" font-family="Syne, system-ui, sans-serif">
+                    <text x="370" y="138" fill="#3b0764" font-size="64" font-weight="800" letter-spacing=".5">Кристаллы</text>
+                    <text x="370" y="136" fill="url(#logoTitleFill)" stroke="#fff7ff" stroke-width="4.5" paint-order="stroke fill" font-size="64" font-weight="800" letter-spacing=".5">Кристаллы</text>
+                    <text x="370" y="214" fill="#3b0764" font-size="62" font-weight="800" letter-spacing="1">три в ряд</text>
+                    <text x="370" y="212" fill="url(#logoTitleFill)" stroke="#fff7ff" stroke-width="4.2" paint-order="stroke fill" font-size="62" font-weight="800" letter-spacing="1">три в ряд</text>
+                  </g>
+                  <g transform="translate(370 310)" filter="url(#logoLeadShadow)">
+                    <path d="M-210-36 L210-36 L232 0 L210 36 L-210 36 L-232 0 Z" fill="url(#logoBanner)" stroke="rgba(232,120,255,.55)" stroke-width="1.8"/>
+                    <path d="M-190-22 L190-22" stroke="url(#logoSubFill)" stroke-width="1.2" opacity=".4"/>
+                    <text x="0" y="-4" text-anchor="middle" fill="url(#logoLeadFill)" stroke="rgba(255,247,255,.45)" stroke-width="1.6" paint-order="stroke fill" font-family="Syne, system-ui, sans-serif" font-size="24" font-weight="700">Соревнуйся с лучшими</text>
+                    <text x="0" y="24" text-anchor="middle" fill="url(#logoLeadFill)" stroke="rgba(255,247,255,.45)" stroke-width="1.6" paint-order="stroke fill" font-family="Syne, system-ui, sans-serif" font-size="24" font-weight="700">и займи место в рейтинге</text>
+                  </g>
+                </svg>
+              </h1>
+            </div>
+            <div class="home-preview" aria-hidden="true">
+              <div class="home-board">
+                <div class="hb-cell"><img class="hb-gem hb-swap-a" src="assets/gems/gem-4.png" alt="" /></div>
+                <div class="hb-cell"><img class="hb-gem hb-swap-b" src="assets/gems/gem-3.png" alt="" /></div>
+                <div class="hb-cell"><img class="hb-gem" src="assets/gems/gem-1.png" alt="" /></div>
+                <div class="hb-cell"><img class="hb-gem" src="assets/gems/gem-5.png" alt="" /></div>
+
+                <div class="hb-cell hb-pulse"><img class="hb-gem hb-match" src="assets/gems/gem-3.png" alt="" /></div>
+                <div class="hb-cell hb-pulse"><img class="hb-gem hb-match" src="assets/gems/gem-3.png" alt="" /></div>
+                <div class="hb-cell hb-pulse"><img class="hb-gem hb-match" src="assets/gems/gem-3.png" alt="" /></div>
+                <div class="hb-cell"><img class="hb-gem" src="assets/gems/gem-6.png" alt="" /></div>
+
+                <div class="hb-cell"><img class="hb-gem hb-fall" src="assets/gems/gem-2.png" alt="" style="--hb-delay:.04s" /></div>
+                <div class="hb-cell"><img class="hb-gem hb-fall" src="assets/gems/gem-5.png" alt="" style="--hb-delay:.1s" /></div>
+                <div class="hb-cell"><img class="hb-gem hb-fall" src="assets/gems/gem-1.png" alt="" style="--hb-delay:.16s" /></div>
+                <div class="hb-cell"><img class="hb-gem" src="assets/gems/gem-4.png" alt="" /></div>
+
+                <div class="hb-cell"><img class="hb-gem hb-fall" src="assets/gems/gem-6.png" alt="" style="--hb-delay:.08s" /></div>
+                <div class="hb-cell"><img class="hb-gem hb-fall" src="assets/gems/gem-2.png" alt="" style="--hb-delay:.14s" /></div>
+                <div class="hb-cell"><img class="hb-gem" src="assets/gems/gem-4.png" alt="" /></div>
+                <div class="hb-cell"><img class="hb-gem" src="assets/gems/gem-1.png" alt="" /></div>
+              </div>
+            </div>
+            <div class="hero-cta">
+              <button class="btn btn-gold btn-wide" id="btn-play" type="button">Играть</button>
+              <div class="btn-row">
+                <button class="btn btn-green" id="btn-to-ratings" type="button">Рейтинг</button>
+                <button class="btn btn-blue" id="btn-to-levels" type="button">Уровни</button>
+              </div>
+              <button class="help-link" id="btn-help" type="button">Как играть</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-levels">
+          <div class="head-row">
+            <button class="btn btn-red" data-go="home" type="button">Назад</button>
+            <h2 class="title" style="font-size:28px;margin:0">Уровни</h2>
+          </div>
+          <div class="scroll" id="levels-scroll"></div>
+        </section>
+
+        <section class="screen" id="screen-ratings">
+          <div class="head-row">
+            <button class="btn btn-red" data-go="home" type="button">Назад</button>
+            <h2 class="title" style="font-size:28px;margin:0">Рейтинг</h2>
+          </div>
+          <div class="panel scroll">
+            <p class="rating-status" id="rating-status"></p>
+            <div class="list" id="rating-list"></div>
+            <button class="btn btn-blue btn-wide" id="btn-vk-board" type="button" hidden>Таблица ВКонтакте</button>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-settings">
+          <div class="head-row">
+            <button class="btn btn-red" data-go="home" type="button">Назад</button>
+            <h2 class="title" id="set-title" style="font-size:26px;margin:0">Настройки</h2>
+          </div>
+          <div class="panel settings">
+            <label class="set-field">Имя <input id="set-name" type="text" maxlength="24" autocomplete="nickname" /></label>
+            <label>Звуки <input id="set-sfx" type="checkbox" /></label>
+            <label>Мелодия <input id="set-music" type="checkbox" /></label>
+            <p class="set-label">Трек</p>
+            <div class="track-row" id="track-row">
+              <button class="btn btn-blue track-btn" type="button" data-track="0">1</button>
+              <button class="btn btn-blue track-btn" type="button" data-track="1">2</button>
+              <button class="btn btn-blue track-btn" type="button" data-track="2">3</button>
+              <button class="btn btn-green track-btn" type="button" data-track="3">4</button>
+            </div>
+            <div id="dev-box" hidden>
+              <div id="dev-gate">
+                <p class="set-label">Режим разработчика</p>
+                <label>Пароль <input id="dev-pass" type="password" autocomplete="off" /></label>
+                <button class="btn btn-blue btn-wide" id="btn-dev-ok" type="button">Войти</button>
+                <p id="dev-err" hidden>Неверный пароль</p>
+              </div>
+              <div id="dev-tools" hidden>
+                <p style="margin:16px 0 8px;font-weight:700;color:#a8b4d8">Генератор уровней — инструмент для JSON-пака.</p>
+                <a class="btn btn-blue btn-wide" href="generator.html" style="display:block;text-decoration:none;text-align:center">Открыть генератор</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-game">
+          <div class="game-hud">
+            <button class="btn btn-red" id="btn-pause" type="button">Пауза</button>
+            <div class="hud-level"><span>уровень</span><b id="hud-level">1</b></div>
+            <div class="chip hud-moves">Ходы <b id="moves">0</b></div>
+          </div>
+          <div class="game-tools">
+            <div class="goals" id="goals"></div>
+            <div class="tools-split" aria-hidden="true"></div>
+            <div class="boost-bar" id="boost-bar">
+              <button class="boost-btn" id="btn-hammer" type="button" title="Молоток — выбери клетку">
+                <img class="boost-ico" src="assets/boosters/hammer.svg" alt="" width="28" height="28" /><b id="cnt-hammer">0</b>
+              </button>
+              <button class="boost-btn boost-shuffle" id="btn-shuffle" type="button" title="Сменить поле — перемешать кристаллы">
+                <img class="boost-ico" src="assets/boosters/shuffle.svg" alt="" width="28" height="28" /><b id="cnt-shuffle">0</b>
+              </button>
+              <button class="btn btn-gold boost-reward" id="btn-reward" type="button">+3 хода</button>
+            </div>
+          </div>
+          <div class="board-wrap"><div id="board"></div></div>
+        </section>
+
+        <div class="overlay" id="ov-start">
+          <div class="modal">
+            <h2 id="start-title">Уровень 1</h2>
+            <p id="start-world"></p>
+            <div class="goals" id="start-goals" style="margin-bottom:12px"></div>
+            <p id="start-hint" class="start-hint"></p>
+            <p>Ходы: <b id="start-moves">20</b></p>
+            <button class="btn btn-gold" id="btn-start" type="button">Начать</button>
+          </div>
+        </div>
+        <div class="overlay" id="ov-pause">
+          <div class="modal">
+            <h2>Пауза</h2>
+            <button class="btn btn-gold" id="btn-resume" type="button">Продолжить</button>
+            <button class="btn btn-blue" id="btn-restart" type="button">Заново</button>
+            <button class="btn btn-red" id="btn-quit" type="button">В меню</button>
+          </div>
+        </div>
+        <div class="overlay" id="ov-win">
+          <div class="modal">
+            <h2>Победа!</h2>
+            <div class="stars-big" id="win-stars">★★★</div>
+            <p id="win-text">Уровень пройден</p>
+            <p id="win-hint" class="win-hint"></p>
+            <button class="btn btn-gold" id="btn-next" type="button">Дальше</button>
+            <button class="btn btn-blue" id="btn-win-home" type="button">В меню</button>
+          </div>
+        </div>
+        <div class="overlay" id="ov-lose">
+          <div class="modal">
+            <h2>Поражение</h2>
+            <p id="lose-text">Ходы закончились</p>
+            <button class="btn btn-gold" id="btn-reward-lose" type="button">Видео: +3 хода</button>
+            <button class="btn btn-gold" id="btn-retry" type="button">Ещё раз</button>
+            <button class="btn btn-red" id="btn-lose-home" type="button">В меню</button>
+          </div>
+        </div>
+        <div class="overlay" id="ov-season">
+          <div class="modal">
+            <h2>Сезон закрыт!</h2>
+            <div class="stars-big">★★★</div>
+            <p id="season-text">Все уровни пройдены. Ты собрал все кристаллы сезона.</p>
+            <button class="btn btn-gold" id="btn-season-home" type="button">В меню</button>
+            <button class="btn btn-green" id="btn-season-ratings" type="button">Рейтинг</button>
+          </div>
+        </div>
+        <div class="overlay" id="ov-help">
+          <div class="modal help-modal">
+            <h2>Как играть</h2>
+            <div class="help-body">
+              <p><b>Цель.</b> Собери указанные кристаллы, пока не кончились ходы. Нужные кристаллы и их число — сверху поля.</p>
+              <p><b>Ход.</b> Нажми на кристалл, затем на соседний (слева, справа, сверху или снизу). Можно свайпнуть их друг на друга.</p>
+              <p><b>Три в ряд.</b> Три или больше одинаковых в линии разбиваются. Новые кристаллы падают сверху.</p>
+
+              <p><b>Кристаллы на поле.</b> Шесть видов — совпадают по цвету и форме:</p>
+              <div class="help-gems">
+                <div class="help-gem"><img src="assets/gems/gem-1.png" alt="" /><span>Розовый</span></div>
+                <div class="help-gem"><img src="assets/gems/gem-2.png" alt="" /><span>Зелёный</span></div>
+                <div class="help-gem"><img src="assets/gems/gem-3.png" alt="" /><span>Голубой</span></div>
+                <div class="help-gem"><img src="assets/gems/gem-4.png" alt="" /><span>Красный</span></div>
+                <div class="help-gem"><img src="assets/gems/gem-5.png" alt="" /><span>Жёлтый</span></div>
+                <div class="help-gem"><img src="assets/gems/gem-6.png" alt="" /><span>Бирюзовый</span></div>
+              </div>
+
+              <p><b>Бонусы.</b> Собирай длинные ряды — появятся особые фишки:</p>
+              <div class="help-boosts">
+                <div class="help-boost">
+                  <img src="assets/boosters/rocket-h.svg" alt="" />
+                  <div><b>Ракета</b> — 4 в ряд. Сносит всю линию по горизонтали или вертикали.</div>
+                </div>
+                <div class="help-boost">
+                  <img src="assets/boosters/bomb.svg" alt="" />
+                  <div><b>Бомба</b> — Г / Т / крест. Взрывает область вокруг себя.</div>
+                </div>
+                <div class="help-boost">
+                  <img src="assets/boosters/rainbow.svg" alt="" />
+                  <div><b>Радуга</b> — 5+ в ряд. Меняй с кристаллом — уберёт весь этот цвет. Срабатывает один раз.</div>
+                </div>
+              </div>
+              <p>Меняй два бонуса местами — получишь ещё более мощный взрыв.</p>
+
+              <p><b>Инструменты.</b></p>
+              <div class="help-boosts">
+                <div class="help-boost">
+                  <img src="assets/boosters/hammer.svg" alt="" />
+                  <div><b>Молоток</b> — уничтожает одну клетку: кристалл, лёд или ящик.</div>
+                </div>
+                <div class="help-boost">
+                  <img src="assets/boosters/shuffle.svg" alt="" />
+                  <div><b>Смена поля</b> — перемешивает все кристаллы на поле.</div>
+                </div>
+              </div>
+              <p>Инструменты дают за звёзды и прохождение арен.</p>
+
+              <p><b>Препятствия.</b></p>
+              <div class="help-boosts">
+                <div class="help-boost">
+                  <img class="help-obs" src="assets/obstacles/crate.svg" alt="" />
+                  <div><b>Ящик</b> — с 11 уровня. Ломается совпадением в соседней клетке.</div>
+                </div>
+                <div class="help-boost">
+                  <span class="help-ice" aria-hidden="true"></span>
+                  <div><b>Лёд</b> — кристалл под коркой. Сними совпадением прямо на этой клетке.</div>
+                </div>
+              </div>
+
+              <p><b>Комбо.</b> Если после падения снова собирается ряд — цепочка. Чем длиннее, тем больше очков.</p>
+              <p><b>Пустой обмен.</b> Если ряда нет, кристаллы вернутся на место, ход не списывается.</p>
+              <p><b>Звёзды.</b> Прохождение — 1 звезда. Много оставшихся ходов или собранных кристаллов — 2 или 3.</p>
+              <p><b>Уровни.</b> 200 уровней в 20 мирах — и дальше ещё больше. Следующий открывается после предыдущего.</p>
+              <p><b>Доп. ходы.</b> Один раз за раунд можно посмотреть видео и получить +3 хода — кнопка сверху или после поражения.</p>
+              <p><b>Рейтинг.</b> В топе сначала смотрят уровень, затем очки: звёзды за прохождения и собранные кристаллы.</p>
+              <p><b>Звук.</b> Значки динамика и ноты на главной включают эффекты и мелодию.</p>
+            </div>
+            <button class="btn btn-gold" id="btn-help-close" type="button">Понятно</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/@vkontakte/vk-bridge@2.15.11/dist/browser.min.js"></script>
+    <script src="js/config.js?v=63"></script>
+    <script src="js/engine.js?v=63"></script>
+    <script src="js/storage.js?v=63"></script>
+    <script src="js/sfx.js?v=63"></script>
+    <script src="js/fx.js?v=63"></script>
+    <script src="js/vk.js?v=63"></script>
+    <script src="js/app.js?v=63"></script>
+  </body>
+</html>
