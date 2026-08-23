@@ -78,14 +78,29 @@ if (hasChanges) {
 }
 
 console.log("Отправка на GitHub...");
-try {
-  runArgs("git", ["push", "-u", "origin", "main"]);
-} catch {
+const push = spawnSync("git", ["push", "-u", "origin", "main"], {
+  cwd: ROOT,
+  encoding: "utf8",
+});
+if (push.status !== 0) {
+  const err = (push.stderr || push.stdout || "").toLowerCase();
   console.error("");
-  console.error("Push не удался. Проверь:");
-  console.error("  1. Репозиторий: https://github.com/tap777play/kristalltaptoplay");
-  console.error("  2. Вход в GitHub (GitHub Desktop или токен при push)");
-  console.error("  3. Права на запись в репозиторий");
+  if (err.includes("repository not found")) {
+    console.error("Репозиторий на GitHub не найден или нет доступа.");
+    console.error("");
+    console.error("Сделай так:");
+    console.error("  1. Открой https://github.com/new");
+    console.error("  2. Owner: tap777play (твой аккаунт GitHub)");
+    console.error("  3. Repository name: kristalltaptoplay");
+    console.error("  4. Public, БЕЗ README / .gitignore — пустой репозиторий");
+    console.error("  5. Create repository");
+    console.error("  6. Settings → Pages → Build and deployment → GitHub Actions");
+    console.error("  7. Снова: npm run deploy");
+    console.error("");
+    console.error("Если аккаунт другой — напиши, поменяем URL в scripts/deploy.mjs");
+  } else {
+    console.error("Push не удался. Проверь вход в GitHub (токен вместо пароля).");
+  }
   process.exit(1);
 }
 
