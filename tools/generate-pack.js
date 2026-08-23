@@ -10,7 +10,15 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const LEVEL_COUNT = 200;
-const SEED = 20260824;
+const SEED = 20260825;
+
+/** Фиксированная ротация форм 1–25: каждый уровень — своё поле, без «шесть full подряд». */
+const ONBOARD_SHAPES = [
+  "full", "diamond", "plus", "corners", "ring", "pyramid",
+  "hourglass", "stairs", "bridge", "diamond",
+  "plus", "corners", "ring", "hourglass", "pyramid", "stairs", "bridge", "corners", "hourglass", "ring",
+  "plus", "diamond", "ring", "pyramid", "stairs",
+];
 
 /** 20 миров × 10 уровней. Каждый мир — новый «вкус» поля и давления. */
 const WORLDS = [
@@ -101,9 +109,10 @@ function isBoss(id) {
   return id % 10 === 0;
 }
 
-/** Передышка: старт мира и уровень 4 — чуть легче, чтобы не выгорать. */
+/** Передышка: старт мира; в онбординге (1–25) только первый уровень мира. */
 function isRelief(id) {
   const p = inWorldPos(id);
+  if (id <= 25) return p === 1;
   return p === 1 || p === 4;
 }
 
@@ -114,7 +123,7 @@ function isPeak(id) {
 }
 
 function boardSize(id) {
-  if (id <= 12) return { cols: 7, rows: 7 };
+  if (id <= 9) return { cols: 7, rows: 7 };
   if (id <= 35) return { cols: 8, rows: 8 };
   if (id <= 80) return { cols: 8, rows: 9 };
   return { cols: 9, rows: 9 };
@@ -181,8 +190,7 @@ function placePattern(playable, count, pattern, rnd, cols, rows) {
 
 function pickPattern(id, rnd) {
   const patterns = ["scatter", "edge", "center", "diagonal"];
-  if (id <= 20) return "scatter";
-  if (isBoss(id)) return patterns[Math.floor(rnd() * patterns.length)];
+  if (id <= 4) return "scatter";
   return patterns[Math.floor(rnd() * patterns.length)];
 }
 
@@ -207,13 +215,16 @@ function makeObstacles(cols, rows, mask, id, rnd) {
   const relief = isRelief(id);
   const peak = isPeak(id);
 
-  if (worldIdx === 1) return obs;
-
   let crates = 0;
   let ice = 0;
 
-  if (worldIdx === 2) {
-    crates = 2 + Math.floor(p * 0.65) + (boss ? 2 : 0);
+  if (worldIdx === 1) {
+    if (id <= 2) return obs;
+    crates = id <= 4 ? 1 : id <= 6 ? 2 : id <= 8 ? 3 : id <= 9 ? 4 : 5;
+    if (boss) crates += 1;
+    if (id >= 7) ice = id >= 10 ? 2 : 1;
+  } else if (worldIdx === 2) {
+    crates = 3 + Math.floor(p * 0.75) + (boss ? 2 : 0);
   } else if (worldIdx === 3) {
     crates = 2 + Math.floor(p * 0.35);
     ice = 2 + Math.floor(p * 0.45) + (boss ? 2 : 0);
@@ -279,8 +290,8 @@ function buildGoals(id, colors, t, rnd, obs, moves) {
   const breakHeavy = isBoss(id) && id >= 80 && rnd() < 0.22 && (crates + ice) >= 10;
 
   let collectCount =
-    id <= 4 ? 1 :
-    id <= 18 ? 2 :
+    id <= 2 ? 1 :
+    id <= 25 ? 2 :
     id <= 55 ? 2 :
     id <= 120 ? (rnd() < 0.35 ? 3 : 2) :
     3;
@@ -297,8 +308,9 @@ function buildGoals(id, colors, t, rnd, obs, moves) {
   let rate = 2.4 + t * 2.85; // → ~5.25 к финалу
   if (boss) rate += 0.45;
   else if (peak) rate += 0.22;
-  if (relief) rate -= 0.4;
-  if (id <= 10) rate = Math.min(rate, 2.75);
+  if (relief) rate -= id <= 25 ? 0.25 : 0.4;
+  if (id <= 2) rate = Math.min(rate, 2.55);
+  else if (id <= 25) rate = Math.max(rate, 2.95);
   if (id >= 181) rate += 0.15;
 
   const collectBudget = Math.max(
@@ -320,11 +332,7 @@ function buildGoals(id, colors, t, rnd, obs, moves) {
 }
 
 function pickShape(id, rnd, world) {
-  if (id <= 6) return "full";
-  if (id <= 14) {
-    const early = ["full", "diamond", "plus"];
-    return early[Math.floor(rnd() * early.length)];
-  }
+  if (id <= 25) return ONBOARD_SHAPES[id - 1];
   const pool = VIBE_SHAPES[world.vibe] || SHAPES;
   if (isBoss(id)) {
     const fancy = pool.filter((s) => s !== "full");
@@ -340,9 +348,9 @@ function pickShape(id, rnd, world) {
  */
 function movesFor(id, t) {
   let moves = Math.round(26 - t * 9.2);
-  if (id <= 8) moves += 3;
-  else if (id <= 20) moves += 1;
-  if (isRelief(id)) moves += 2;
+  if (id === 1) moves += 2;
+  else if (id <= 3) moves += 1;
+  if (isRelief(id)) moves += id <= 25 ? 1 : 2;
   if (isPeak(id) && !isBoss(id)) moves -= 1;
   if (isBoss(id)) moves -= 2;
   if (id >= 150) moves -= 1;
