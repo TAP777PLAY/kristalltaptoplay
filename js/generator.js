@@ -3,7 +3,7 @@
  */
 (function () {
   const LEVEL_COUNT = 200;
-  const SEED = 20260825;
+  const SEED = 20260827;
 
   const ONBOARD_SHAPES = [
     "full", "diamond", "plus", "corners", "ring", "pyramid",
@@ -108,6 +108,53 @@
     return { cols: 9, rows: 9 };
   }
 
+  function minPlayableSegment(mask, cols, rows) {
+    let min = Infinity;
+    for (let y = 0; y < rows; y++) {
+      let run = 0;
+      for (let x = 0; x <= cols; x++) {
+        const play = x < cols && mask[y][x] === 0;
+        if (play) run++;
+        else {
+          if (run > 0 && run < min) min = run;
+          run = 0;
+        }
+      }
+    }
+    for (let x = 0; x < cols; x++) {
+      let run = 0;
+      for (let y = 0; y <= rows; y++) {
+        const play = y < rows && mask[y][x] === 0;
+        if (play) run++;
+        else {
+          if (run > 0 && run < min) min = run;
+          run = 0;
+        }
+      }
+    }
+    return min === Infinity ? 0 : min;
+  }
+
+  function maskIsValid(mask, cols, rows) {
+    let playable = 0;
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) if (mask[y][x] === 0) playable++;
+    }
+    if (!playable) return false;
+    return minPlayableSegment(mask, cols, rows) !== 2;
+  }
+
+  function resolveMask(cols, rows, shape) {
+    const order = [shape];
+    SHAPES.forEach((s) => { if (s !== shape) order.push(s); });
+    if (shape !== "full") order.push("full");
+    for (const s of order) {
+      const mask = makeMask(cols, rows, s);
+      if (maskIsValid(mask, cols, rows)) return { mask, shape: s };
+    }
+    return { mask: makeMask(cols, rows, "full"), shape: "full" };
+  }
+
   function makeMask(cols, rows, shape) {
     const mask = [];
     const cx = (cols - 1) / 2;
@@ -119,11 +166,21 @@
         let play = true;
         const dx = Math.abs(x - cx);
         const dy = Math.abs(y - cy);
-        if (shape === "diamond") play = dx + dy <= Math.ceil(maxD);
-        else if (shape === "plus") play = dx <= 1 || dy <= 1 || (dx <= 2 && dy <= 2 && cols >= 8);
-        else if (shape === "ring") play = !(dx <= Math.max(1, Math.floor(cx / 3)) && dy <= Math.max(1, Math.floor(cy / 3)));
-        else if (shape === "corners") play = !((x === 0 || x === cols - 1) && (y === 0 || y === rows - 1));
-        else if (shape === "pyramid") play = y >= Math.floor(Math.abs(x - cx));
+        if (shape === "diamond") {
+          const bump = Math.min(cols, rows) <= 8 ? 1 : 0;
+          play = dx + dy <= Math.ceil(maxD) + bump;
+        } else if (shape === "plus") play = dx <= 2 || dy <= 2;
+        else if (shape === "ring") {
+          if (Math.min(cols, rows) <= 7) play = true;
+          else {
+            const hole = Math.max(1, Math.floor(Math.min(cx, cy) / 3));
+            play = !(dx <= hole && dy <= hole);
+          }
+        } else if (shape === "corners") play = !((x === 0 || x === cols - 1) && (y === 0 || y === rows - 1));
+        else if (shape === "pyramid") {
+          play = y >= Math.floor(Math.abs(x - cx));
+          if (y <= 1 || y >= rows - 2) play = play || dx <= 2;
+        }
         else if (shape === "hourglass") play = dx + 0.4 >= dy || dy + 0.4 >= dx;
         else if (shape === "stairs") play = x + y >= Math.floor((cols + rows) / 4) && x + y <= cols + rows - 3;
         else if (shape === "bridge") play = y === Math.floor(cy) || x <= 1 || x >= cols - 2 || y <= 1 || y >= rows - 2;
@@ -329,8 +386,10 @@
     const rows = o.rows || auto.rows;
     const colors = o.colors || world.colors;
     const moves = o.moves || movesFor(id, t);
-    const shape = o.shape || pickShape(id, rnd, world);
-    const mask = makeMask(cols, rows, shape);
+    const wantedShape = o.shape || pickShape(id, rnd, world);
+    const resolved = resolveMask(cols, rows, wantedShape);
+    const shape = resolved.shape;
+    const mask = resolved.mask;
     const obstacles = makeObstacles(cols, rows, mask, id, rnd);
     const goals = buildGoals(id, colors, t, rnd, obstacles, moves);
     const needCollect = goals.filter((g) => g.kind === "collect").reduce((s, g) => s + g.count, 0);

@@ -26,6 +26,7 @@
   let rewardBusy = false;
   let pendingInterstitial = false;
   let leaving = false;
+  let levelSession = { id: 0, losses: 0, retries: 0, restarts: 0 };
 
   function show(id) {
     document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
@@ -1201,14 +1202,36 @@
   }
   function onBoardUp() { dragFrom = null; }
 
+  async function showSessionInterstitial() {
+    Platform.armInterstitial();
+    await Platform.showInterstitial();
+    levelSession.losses = 0;
+    levelSession.retries = 0;
+    levelSession.restarts = 0;
+  }
+
+  async function relaunchLevel(fromPause) {
+    if (!current) return;
+    hideOvs();
+    if (fromPause) levelSession.restarts += 1;
+    else levelSession.retries += 1;
+    const again = fromPause ? levelSession.restarts : levelSession.retries;
+    if (levelSession.losses >= 2 || again >= 2) await showSessionInterstitial();
+    startLevel(current.id);
+  }
+
   function startLevel(id) {
     if (id > pack.levels.length) {
       showSeason();
       return;
     }
+    if (levelSession.id !== id) {
+      levelSession = { id, losses: 0, retries: 0, restarts: 0 };
+    }
     current = pack.levels.find((l) => l.id === id);
     if (!current) return;
     Sfx.play("click");
+    if (Platform.reopenBanner) Platform.reopenBanner();
     toolMode = null;
     score = 0;
     moves = current.moves;
@@ -1278,8 +1301,10 @@
   function lose() {
     if (state === "lose" || state === "win") return;
     state = "lose";
+    levelSession.losses += 1;
     Sfx.play("lose");
     persist();
+    if (Platform.reopenBanner) Platform.reopenBanner();
     $("lose-text").textContent = "Ходы закончились на уровне " + current.id;
     ov("ov-lose", true);
     syncRewardUi();
@@ -1366,7 +1391,7 @@
     Sfx.startMusic(save.musicIndex || 0);
     Sfx.setMusic(save.music !== false);
 
-    const res = await fetch("levels/pack.json?v=67");
+    const res = await fetch("levels/pack.json?v=69");
     pack = await res.json();
     try {
       const tutRes = await fetch("levels/tutorial.json");
@@ -1408,9 +1433,9 @@
     });
     $("btn-pause").addEventListener("click", () => { if (state === "play") { Sfx.play("click"); ov("ov-pause", true); state = "paused"; } });
     $("btn-resume").addEventListener("click", () => { Sfx.play("click"); ov("ov-pause", false); state = "play"; });
-    $("btn-restart").addEventListener("click", () => startLevel(current.id));
+    $("btn-restart").addEventListener("click", () => relaunchLevel(true));
     $("btn-quit").addEventListener("click", goHome);
-    $("btn-retry").addEventListener("click", () => startLevel(current.id));
+    $("btn-retry").addEventListener("click", () => relaunchLevel(false));
     $("btn-lose-home").addEventListener("click", goHome);
     $("btn-win-home").addEventListener("click", () => leaveAfterLevel(goHome));
     $("btn-next").addEventListener("click", () => {

@@ -10,7 +10,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const LEVEL_COUNT = 200;
-const SEED = 20260825;
+const SEED = 20260827;
 
 /** Фиксированная ротация форм 1–25: каждый уровень — своё поле, без «шесть full подряд». */
 const ONBOARD_SHAPES = [
@@ -129,6 +129,55 @@ function boardSize(id) {
   return { cols: 9, rows: 9 };
 }
 
+/** Минимальная длина сплошного ряда/столбца играбельных клеток. 2 = «два поля» подряд — запрещено. */
+function minPlayableSegment(mask, cols, rows) {
+  let min = Infinity;
+  for (let y = 0; y < rows; y++) {
+    let run = 0;
+    for (let x = 0; x <= cols; x++) {
+      const play = x < cols && mask[y][x] === 0;
+      if (play) run++;
+      else {
+        if (run > 0 && run < min) min = run;
+        run = 0;
+      }
+    }
+  }
+  for (let x = 0; x < cols; x++) {
+    let run = 0;
+    for (let y = 0; y <= rows; y++) {
+      const play = y < rows && mask[y][x] === 0;
+      if (play) run++;
+      else {
+        if (run > 0 && run < min) min = run;
+        run = 0;
+      }
+    }
+  }
+  return min === Infinity ? 0 : min;
+}
+
+function maskIsValid(mask, cols, rows) {
+  let playable = 0;
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) if (mask[y][x] === 0) playable++;
+  }
+  if (!playable) return false;
+  const min = minPlayableSegment(mask, cols, rows);
+  return min !== 2;
+}
+
+function resolveMask(cols, rows, shape, rnd) {
+  const order = [shape];
+  SHAPES.forEach((s) => { if (s !== shape) order.push(s); });
+  if (shape !== "full") order.push("full");
+  for (const s of order) {
+    const mask = makeMask(cols, rows, s);
+    if (maskIsValid(mask, cols, rows)) return { mask, shape: s };
+  }
+  return { mask: makeMask(cols, rows, "full"), shape: "full" };
+}
+
 function makeMask(cols, rows, shape) {
   const mask = [];
   const cx = (cols - 1) / 2;
@@ -140,11 +189,21 @@ function makeMask(cols, rows, shape) {
       let play = true;
       const dx = Math.abs(x - cx);
       const dy = Math.abs(y - cy);
-      if (shape === "diamond") play = dx + dy <= Math.ceil(maxD);
-      else if (shape === "plus") play = dx <= 1 || dy <= 1 || (dx <= 2 && dy <= 2 && cols >= 8);
-      else if (shape === "ring") play = !(dx <= Math.max(1, Math.floor(cx / 3)) && dy <= Math.max(1, Math.floor(cy / 3)));
-      else if (shape === "corners") play = !((x === 0 || x === cols - 1) && (y === 0 || y === rows - 1));
-      else if (shape === "pyramid") play = y >= Math.floor(Math.abs(x - cx));
+      if (shape === "diamond") {
+        const bump = Math.min(cols, rows) <= 8 ? 1 : 0;
+        play = dx + dy <= Math.ceil(maxD) + bump;
+      } else if (shape === "plus") play = dx <= 2 || dy <= 2;
+      else if (shape === "ring") {
+        if (Math.min(cols, rows) <= 7) play = true;
+        else {
+          const hole = Math.max(1, Math.floor(Math.min(cx, cy) / 3));
+          play = !(dx <= hole && dy <= hole);
+        }
+      } else if (shape === "corners") play = !((x === 0 || x === cols - 1) && (y === 0 || y === rows - 1));
+      else if (shape === "pyramid") {
+        play = y >= Math.floor(Math.abs(x - cx));
+        if (y <= 1 || y >= rows - 2) play = play || dx <= 2;
+      }
       else if (shape === "hourglass") play = dx + 0.4 >= dy || dy + 0.4 >= dx;
       else if (shape === "stairs") play = x + y >= Math.floor((cols + rows) / 4) && x + y <= cols + rows - 3;
       else if (shape === "bridge") play = y === Math.floor(cy) || x <= 1 || x >= cols - 2 || y <= 1 || y >= rows - 2;
@@ -364,8 +423,8 @@ function buildLevel(id, seed) {
   const { cols, rows } = boardSize(id);
   const colors = world.colors;
   const moves = movesFor(id, t);
-  const shape = pickShape(id, rnd, world);
-  const mask = makeMask(cols, rows, shape);
+  const wantedShape = pickShape(id, rnd, world);
+  const { mask, shape } = resolveMask(cols, rows, wantedShape, rnd);
   const obstacles = makeObstacles(cols, rows, mask, id, rnd);
   const goals = buildGoals(id, colors, t, rnd, obstacles, moves);
   const needCollect = goals.filter((g) => g.kind === "collect").reduce((s, g) => s + g.count, 0);
@@ -411,8 +470,20 @@ function generatePack(count = LEVEL_COUNT, seed = SEED) {
   };
 }
 
-function audit(pack) {
-  const samples = [1, 5, 10, 20, 50, 100, 150, 180, 200];
+function auditPack(pack) {
+  const bad = [];
+  const byShape = {};
+  for (const lv of pack.levels) {
+    byShape[lv.shape] = (byShape[lv.shape] || 0) + 1;
+    if (minPlayableSegment(lv.mask, lv.cols, lv.rows) === 2) bad.push(lv.id);
+  }
+  if (bad.length) console.warn("INVALID levels (2-wide segment):", bad.join(", "));
+  else console.log("Mask audit: all", pack.levels.length, "levels OK (no 2-wide segments)");
+  console.log("Shapes:", Object.entries(byShape).sort((a, b) => b[1] - a[1]).map(([s, n]) => s + "×" + n).join(", "));
+  return bad.length === 0;
+}
+function auditLevels(pack) {
+  const samples = [1, 5, 10, 20, 30, 50, 100, 150, 180, 200];
   console.log("--- audit (need/moves ≈ units per move) ---");
   for (const id of samples) {
     const lv = pack.levels[id - 1];
@@ -432,7 +503,8 @@ function writePack() {
   fs.writeFileSync(out, JSON.stringify(pack, null, 2), "utf8");
   console.log("Wrote", pack.levels.length, "levels (v" + pack.version + ") ->", out);
   console.log("Worlds:", pack.worlds.map((w) => w.name + " (" + w.from + "–" + w.to + ")").join(", "));
-  audit(pack);
+  auditPack(pack);
+  auditLevels(pack);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) writePack();

@@ -194,6 +194,13 @@
     await requestBannerAd();
   }
 
+  async function reopenBanner() {
+    if (!inVk() || !bridge() || nativeBusy) return;
+    if (bannerShown) await hideBanner();
+    const ok = await requestBannerAd();
+    if (ok) scheduleBannerRefresh();
+  }
+
   async function showBanner() {
     if (!inVk() || !bridge() || bannerShown || bannerAsked) return;
     bannerAsked = true;
@@ -492,5 +499,6 @@
       return showNative("reward");
     },
     showBanner,
+    reopenBanner,
   };
 })(window);

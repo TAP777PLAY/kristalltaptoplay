@@ -1,0 +1,52 @@
+﻿=== Raw shape validity by board size ===
+7x7 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+7x8 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+7x9 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+8x7 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:BAD(2) | hourglass:ok | stairs:ok | bridge:ok
+8x8 тЖТ full:ok | diamond:BAD(2) | plus:ok | ring:ok | corners:ok | pyramid:BAD(2) | hourglass:ok | stairs:ok | bridge:ok
+8x9 тЖТ full:ok | diamond:ok | plus:ok | ring:ok | corners:ok | pyramid:BAD(2) | hourglass:ok | stairs:ok | bridge:ok
+9x7 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+9x8 тЖТ full:ok | diamond:ok | plus:ok | ring:ok | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+9x9 тЖТ full:ok | diamond:ok | plus:ok | ring:ok | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+
+=== Pack: levels with 2-wide segments ===
+count: 0 none
+
+=== Pack shape distribution ===
+full: 29
+stairs: 26
+diamond: 24
+bridge: 24
+ring: 22
+plus: 19
+corners: 19
+hourglass: 19
+pyramid: 18
+
+=== Levels 1-25: wanted shape vs actual (fallbacks) ===
+#5 wanted ring (INVALID) тЖТ full
+#10 wanted diamond (INVALID) тЖТ full
+#15 wanted pyramid (INVALID) тЖТ full
+#22 wanted diamond (INVALID) тЖТ full
+#24 wanted pyramid (INVALID) тЖТ full
+
+=== All plus-related levels in pack ===
+#3 shape=plus 7x7 minSeg=5
+#11 shape=plus 8x8 minSeg=4
+#21 shape=plus 8x8 minSeg=4
+#27 shape=plus 8x8 minSeg=4
+#61 shape=plus 8x9 minSeg=4
+#68 shape=plus 8x9 minSeg=4
+#69 shape=plus 8x9 minSeg=4
+#96 shape=plus 9x9 minSeg=5
+#100 shape=plus 9x9 minSeg=5
+#111 shape=plus 9x9 minSeg=5
+#113 shape=plus 9x9 minSeg=5
+#120 shape=plus 9x9 minSeg=5
+#143 shape=plus 9x9 minSeg=5
+#146 shape=plus 9x9 minSeg=5
+#149 shape=plus 9x9 minSeg=5
+#152 shape=plus 9x9 minSeg=5
+#156 shape=plus 9x9 minSeg=5
+#176 shape=plus 9x9 minSeg=5
+#188 shape=plus 9x9 minSeg=5

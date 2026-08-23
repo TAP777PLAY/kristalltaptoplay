@@ -1,0 +1,65 @@
+﻿Wrote 200 levels (v4) -> C:\Users\840G5\Desktop\╤А╨░╨▒╨╛╤В╨░\3row\gem-brawl\levels\pack.json
+Worlds: ╨в╤А╨░╨▓╤П╨╜╨░╤П ╨┤╨╛╨╗╨╕╨╜╨░ (1тАУ10), ╨п╨╜╤В╨░╤А╨╜╤Л╨╡ ╨║╨╛╨┐╨╕ (11тАУ20), ╨Ы╨╡╨┤╤П╨╜╤Л╨╡ ╨┐╨╕╨║╨╕ (21тАУ30), ╨Р╨╝╨╡╤В╨╕╤Б╤В╨╛╨▓╤Л╨╣ ╨║╨░╨╜╤М╨╛╨╜ (31тАУ40), ╨Э╨╛╤З╨╜╨░╤П ╤А╨╛╤Й╨░ (41тАУ50), ╨Ю╨│╨╜╨╡╨╜╨╜╤Л╨╣ ╨║╤А╨░╤В╨╡╤А (51тАУ60), ╨Э╨╡╨╛╨╜╨╛╨▓╤Л╨╡ ╨╜╨╡╨┤╤А╨░ (61тАУ70), ╨Ъ╤А╨╕╤Б╤В╨░╨╗╤М╨╜╤Л╨╣ ╤И╤В╨╛╤А╨╝ (71тАУ80), ╨С╨╡╨╖╨┤╨╜╨░ ╤Б╨╕╤П╨╜╨╕╤П (81тАУ90), ╨Т╨╡╤А╤И╨╕╨╜╨░ ╨┤╨╛╨╗╨╕╨╜╤Л (91тАУ100), ╨в╤Г╨╝╨░╨╜╨╜╤Л╨╡ ╨│╤А╨╛╤В╤Л (101тАУ110), ╨а╤Г╨▒╨╕╨╜╨╛╨▓╨░╤П ╨║╤Г╨╖╨╜╤П (111тАУ120), ╨б╨░╨┐╤Д╨╕╤А╨╛╨▓╨╛╨╡ ╨╛╨╖╨╡╤А╨╛ (121тАУ130), ╨Ш╨╖╤Г╨╝╤А╤Г╨┤╨╜╤Л╨╣ ╨╗╨░╨▒╨╕╤А╨╕╨╜╤В (131тАУ140), ╨Ю╨▒╤Б╨╕╨┤╨╕╨░╨╜╨╛╨▓╤Л╨╡ ╨▓╤А╨░╤В╨░ (141тАУ150), ╨Я╤А╨╕╨╖╤А╨░╤З╨╜╨░╤П ╤В╨╛╨┐╤М (151тАУ160), ╨У╤А╨╛╨╖╨╛╨▓╨╛╨╣ ╤Е╤А╨╡╨▒╨╡╤В (161тАУ170), ╨Ч╨▓╤С╨╖╨┤╨╜╨░╤П ╨┐╤Г╤Б╤В╨╛╤И╤М (171тАУ180), ╨б╨╡╤А╨┤╤Ж╨╡ ╨║╤А╨╕╤Б╤В╨░╨╗╨╗╨░ (181тАУ190), ╨Ъ╨╛╤А╨╛╨╜╨░ ╨┤╨╛╨╗╨╕╨╜╤Л (191тАУ200)
+Mask audit: all 200 levels OK (no 2-wide segments)
+Shapes: ring├Ч32, bridge├Ч26, stairs├Ч25, corners├Ч23, full├Ч21, diamond├Ч21, hourglass├Ч20, plus├Ч19, pyramid├Ч13
+--- audit (need/moves тЙИ units per move) ---
+#1 ╨в╤А╨░╨▓╤П╨╜╨░╤П ╨┤╨╛╨╗╨╕╨╜╨░ | 7├Ч7 full | moves 29 | rate 2.14 | тАФ
+#5 ╨в╤А╨░╨▓╤П╨╜╨░╤П ╨┤╨╛╨╗╨╕╨╜╨░ | 7├Ч7 full | moves 26 | rate 3.04 | crate├Ч2
+#10 ╨в╤А╨░╨▓╤П╨╜╨░╤П ╨┤╨╛╨╗╨╕╨╜╨░ | 8├Ч8 diamond | moves 24 | rate 3.50 | crate├Ч6,ice├Ч2
+#20 ╨п╨╜╤В╨░╤А╨╜╤Л╨╡ ╨║╨╛╨┐╨╕ | 8├Ч8 ring | moves 23 | rate 3.61 | crate├Ч12
+#30 ╨Ы╨╡╨┤╤П╨╜╤Л╨╡ ╨┐╨╕╨║╨╕ | 8├Ч8 ring | moves 23 | rate 3.83 | crate├Ч5,ice├Ч8
+#50 ╨Э╨╛╤З╨╜╨░╤П ╤А╨╛╤Й╨░ | 8├Ч9 bridge | moves 22 | rate 4.23 | crate├Ч6,ice├Ч6
+#100 ╨Т╨╡╤А╤И╨╕╨╜╨░ ╨┤╨╛╨╗╨╕╨╜╤Л | 9├Ч9 bridge | moves 19 | rate 5.05 | crate├Ч7,ice├Ч7
+#150 ╨Ю╨▒╤Б╨╕╨┤╨╕╨░╨╜╨╛╨▓╤Л╨╡ ╨▓╤А╨░╤В╨░ | 9├Ч9 bridge | moves 16 | rate 6.00 | crate├Ч10,ice├Ч10
+#180 ╨Ч╨▓╤С╨╖╨┤╨╜╨░╤П ╨┐╤Г╤Б╤В╨╛╤И╤М | 9├Ч9 ring | moves 15 | rate 6.67 | crate├Ч9,ice├Ч11
+#200 ╨Ъ╨╛╤А╨╛╨╜╨░ ╨┤╨╛╨╗╨╕╨╜╤Л | 9├Ч9 ring | moves 14 | rate 7.21 | crate├Ч11,ice├Ч11
+=== Raw shape validity by board size ===
+7x7 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+7x8 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+7x9 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+8x7 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:BAD(2) | hourglass:ok | stairs:ok | bridge:ok
+8x8 тЖТ full:ok | diamond:ok | plus:ok | ring:ok | corners:ok | pyramid:BAD(2) | hourglass:ok | stairs:ok | bridge:ok
+8x9 тЖТ full:ok | diamond:BAD(2) | plus:ok | ring:ok | corners:ok | pyramid:BAD(2) | hourglass:ok | stairs:ok | bridge:ok
+9x7 тЖТ full:ok | diamond:ok | plus:ok | ring:BAD(2) | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+9x8 тЖТ full:ok | diamond:BAD(2) | plus:ok | ring:ok | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+9x9 тЖТ full:ok | diamond:ok | plus:ok | ring:ok | corners:ok | pyramid:ok | hourglass:ok | stairs:ok | bridge:ok
+
+=== Pack: levels with 2-wide segments ===
+count: 0 none
+
+=== Pack shape distribution ===
+ring: 32
+bridge: 26
+stairs: 25
+corners: 23
+full: 21
+diamond: 21
+hourglass: 20
+plus: 19
+pyramid: 13
+
+=== Levels 1-25: wanted shape vs actual (fallbacks) ===
+#5 wanted ring (INVALID) тЖТ full
+#15 wanted pyramid (INVALID) тЖТ full
+#24 wanted pyramid (INVALID) тЖТ full
+
+=== All plus-related levels in pack ===
+#3 shape=plus 7x7 minSeg=5
+#11 shape=plus 8x8 minSeg=4
+#21 shape=plus 8x8 minSeg=4
+#41 shape=plus 8x9 minSeg=4
+#42 shape=plus 8x9 minSeg=4
+#43 shape=plus 8x9 minSeg=4
+#63 shape=plus 8x9 minSeg=4
+#65 shape=plus 8x9 minSeg=4
+#70 shape=plus 8x9 minSeg=4
+#85 shape=plus 9x9 minSeg=5
+#93 shape=plus 9x9 minSeg=5
+#98 shape=plus 9x9 minSeg=5
+#120 shape=plus 9x9 minSeg=5
+#141 shape=plus 9x9 minSeg=5
+#145 shape=plus 9x9 minSeg=5
+#147 shape=plus 9x9 minSeg=5
+#153 shape=plus 9x9 minSeg=5
+#182 shape=plus 9x9 minSeg=5
+#183 shape=plus 9x9 minSeg=5
