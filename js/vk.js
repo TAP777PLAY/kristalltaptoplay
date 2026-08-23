@@ -17,8 +17,10 @@
   let lastNativeAt = 0;
   let bannerShown = false;
   let bannerAsked = false;
+  let bannerRefreshTimer = null;
   let interstitialArmed = false;
   let nativeBusy = false;
+  const BANNER_REFRESH_MS = 30000;
 
   function vkPlatform() {
     const blob = location.search + "&" + location.hash;
@@ -140,20 +142,63 @@
     if (stage) fit(stage);
   }
 
-  async function showBanner() {
-    if (!inVk() || !bridge() || bannerShown || bannerAsked) return;
-    bannerAsked = true;
+  function clearBannerState() {
+    bannerShown = false;
+    document.body.classList.remove("has-vk-banner");
+    document.documentElement.style.setProperty("--vk-banner-h", "0px");
+    const stage = document.getElementById("stage");
+    if (stage) fit(stage);
+  }
+
+  function clearBannerRefresh() {
+    if (!bannerRefreshTimer) return;
+    clearInterval(bannerRefreshTimer);
+    bannerRefreshTimer = null;
+  }
+
+  function scheduleBannerRefresh() {
+    clearBannerRefresh();
+    if (!inVk() || !bridge()) return;
+    bannerRefreshTimer = setInterval(refreshBanner, BANNER_REFRESH_MS);
+  }
+
+  async function requestBannerAd() {
+    if (!inVk() || !bridge()) return false;
     const check = await send("VKWebAppCheckBannerAd");
     if (check && check.result) {
       applyBanner(check);
-      return;
+      return true;
     }
     const res = await send("VKWebAppShowBannerAd", {
       banner_location: "bottom",
       layout_type: "overlay",
       can_close: false,
     });
-    if (res && res.result) applyBanner(res);
+    if (res && res.result) {
+      applyBanner(res);
+      return true;
+    }
+    return false;
+  }
+
+  async function hideBanner() {
+    if (!bannerShown) return false;
+    const res = await send("VKWebAppHideBannerAd");
+    clearBannerState();
+    return !!(res && res.result);
+  }
+
+  async function refreshBanner() {
+    if (!inVk() || !bridge() || nativeBusy) return;
+    if (bannerShown) await hideBanner();
+    await requestBannerAd();
+  }
+
+  async function showBanner() {
+    if (!inVk() || !bridge() || bannerShown || bannerAsked) return;
+    bannerAsked = true;
+    const ok = await requestBannerAd();
+    if (ok) scheduleBannerRefresh();
   }
 
   function onBridgeEvent(event) {
@@ -163,11 +208,8 @@
       applyBanner(data);
     }
     if (type === "VKWebAppBannerAdClosedByUser") {
-      bannerShown = false;
-      document.body.classList.remove("has-vk-banner");
-      document.documentElement.style.setProperty("--vk-banner-h", "0px");
-      const stage = document.getElementById("stage");
-      if (stage) fit(stage);
+      clearBannerRefresh();
+      clearBannerState();
     }
     if (type === "VKWebAppResizeWindowResult" || type === "VKWebAppUpdateConfig") {
       const stage = document.getElementById("stage");
