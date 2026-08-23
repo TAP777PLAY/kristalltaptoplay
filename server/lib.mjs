@@ -2,11 +2,11 @@ import crypto from "node:crypto";
 
 export const APP_ID = (() => {
   const n = Number(process.env.VK_APP_ID);
-  return Number.isFinite(n) && n > 0 ? n : 51901586;
+  return Number.isFinite(n) && n > 0 ? n : 51874967;
 })();
 const MAX_TS_AGE = Number(process.env.LAUNCH_MAX_AGE || 60 * 60 * 24 * 7);
 export const MAX_TROPHIES = 100000;
-export const MAX_LEVEL = 80;
+export const MAX_LEVEL = 200;
 export const RATE_MS = 2500;
 const BOARD_KEY = "gem-brawl-board";
 const HASH_KEY = "gem-brawl-players";

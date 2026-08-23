@@ -1343,7 +1343,7 @@
     Sfx.startMusic(save.musicIndex || 0);
     Sfx.setMusic(save.music !== false);
 
-    const res = await fetch("levels/pack.json?v=63");
+    const res = await fetch("levels/pack.json?v=64");
     pack = await res.json();
     try {
       const tutRes = await fetch("levels/tutorial.json");

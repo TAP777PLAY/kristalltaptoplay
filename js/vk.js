@@ -1,5 +1,5 @@
 (function (global) {
-  const APP_ID = 51901586;
+  const APP_ID = 51874967;
   const params = new URLSearchParams(location.search);
 
   function inVk() {

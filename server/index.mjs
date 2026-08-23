@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 loadEnv(path.join(__dirname, ".env"));
 loadEnv(path.join(__dirname, "..", ".env"));
 
-const APP_ID = Number(process.env.VK_APP_ID || 51901586);
+const APP_ID = Number(process.env.VK_APP_ID || 51874967);
 const SECURE_KEY = process.env.VK_SECURE_KEY || "";
 const SERVICE_TOKEN = process.env.VK_SERVICE_TOKEN || "";
 const PORT = Number(process.env.PORT || 8787);
@@ -20,7 +20,7 @@ const ORIGINS = (process.env.ALLOWED_ORIGINS || "*")
 const DATA_FILE = process.env.DATA_FILE || path.join(__dirname, "data", "leaderboard.json");
 const MAX_TS_AGE = Number(process.env.LAUNCH_MAX_AGE || 60 * 60 * 24 * 7);
 const MAX_TROPHIES = 100000;
-const MAX_LEVEL = 80;
+const MAX_LEVEL = 200;
 const RATE_MS = 2500;
 
 if (!SECURE_KEY || !SERVICE_TOKEN) {
