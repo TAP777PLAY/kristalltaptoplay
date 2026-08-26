@@ -1309,6 +1309,18 @@ body.has-vk-banner .shell {
   100% { transform: scale(1) rotate(0); opacity: 1; }
 }
 .win-hint { font-size: 14px; font-weight: 600; color: #c4b4e0; }
+.win-teaser {
+  margin: 6px 0 14px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffe9a8;
+  background: linear-gradient(135deg, rgba(240, 180, 0, .18), rgba(232, 120, 255, .14));
+  border: 1px solid rgba(255, 225, 74, .35);
+  border-radius: 12px;
+}
+.win-teaser[hidden] { display: none; }
 
 .list { display: flex; flex-direction: column; gap: 8px; overflow: auto; overflow-x: hidden; padding: 4px; min-width: 0; }
 .rank {

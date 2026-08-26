@@ -220,6 +220,7 @@
   function awardBoosters(stars) {
     if (stars >= 3 && Math.random() < 0.4) save.boosters.hammer = (save.boosters.hammer || 0) + 1;
     if (current.id % 10 === 0) save.boosters.shuffle = (save.boosters.shuffle || 0) + 1;
+    if (current.id === 2) save.boosters.hammer = (save.boosters.hammer || 0) + 1;
     if (current.id === 5 && (save.boosters.hammer || 0) < 2) save.boosters.hammer = 2;
   }
 
@@ -937,6 +938,20 @@
             ? "Впритык!"
             : "Уровень пройден";
     $("win-hint").textContent = hint;
+    const teaserEl = $("win-teaser");
+    if (teaserEl) {
+      const teaser = winTeaser(current && current.id);
+      teaserEl.textContent = teaser;
+      teaserEl.hidden = !teaser;
+    }
+  }
+
+  function winTeaser(id) {
+    if (id === 1) return "Дальше — новое поле и комбо!";
+    if (id === 2) return "Дальше — деревянные ящики! Ломай их совпадениями рядом.";
+    if (id === 3) return "Впереди — новые формы поля и ещё сложнее!";
+    if (id === 9) return "Босс арены совсем близко!";
+    return "";
   }
 
   async function collapse() {
@@ -1283,7 +1298,8 @@
     if (current.id >= save.unlocked) save.unlocked = current.id + 1;
     Save.addScore(save, { name: save.name, level: current.id, score, trophies: stars * 10, at: Date.now() });
     save.clears = (save.clears || 0) + 1;
-    pendingInterstitial = save.clears % 2 === 0;
+    // Первые прохождения без межстранички — не рубим воронку на 1–4
+    pendingInterstitial = save.clears >= 5 && save.clears % 2 === 0;
     awardBoosters(stars);
     persist();
     pushRating();
@@ -1400,7 +1416,7 @@
     const res = await fetch("levels/pack.json?v=69");
     pack = await res.json();
     try {
-      const tutRes = await fetch("levels/tutorial.json");
+      const tutRes = await fetch("levels/tutorial.json?v=70");
       const tut = await tutRes.json();
       (tut.overrides || []).forEach((ov) => {
         const i = pack.levels.findIndex((l) => l.id === ov.id);
