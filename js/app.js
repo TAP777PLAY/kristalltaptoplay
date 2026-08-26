@@ -675,10 +675,123 @@
   }
 
   function highlight(cell) {
-    gems.forEach((g) => g.classList.remove("selected"));
+    gems.forEach((g) => g.classList.remove("selected", "lifting", "passing-under"));
     if (!cell) return;
     const el = gems.get(key(cell.x, cell.y));
     if (el) el.classList.add("selected");
+  }
+
+  function easeInOutSmoother(t) {
+    return t * t * t * (t * (t * 6 - 15) + 10);
+  }
+
+  function settleGemEl(el) {
+    if (!el) return;
+    el.style.transform = "scale(1)";
+    el.style.filter = "";
+    el.classList.remove("lifting", "swapping", "passing-under");
+    el.style.zIndex = "";
+    requestAnimationFrame(() => {
+      el.style.transform = "";
+      el.style.willChange = "";
+      el.style.transition = "";
+    });
+  }
+
+  /**
+   * Как в «Сокровищах пиратов»:
+   * вперёд — взятый кристалл (A) заходит ПОВЕРХ второго;
+   * откат — A возвращается ПОД ним (второй сверху).
+   */
+  function animatePirateSwap(elA, elB, pa, pb, mode) {
+    const fail = mode === "fail";
+    const duration = fail ? 280 : 260;
+    const aFrom = fail ? pb : pa;
+    const aTo = fail ? pa : pb;
+    const bFrom = fail ? pa : pb;
+    const bTo = fail ? pb : pa;
+    const dxA = aTo.left - aFrom.left;
+    const dyA = aTo.top - aFrom.top;
+    const dxB = bTo.left - bFrom.left;
+    const dyB = bTo.top - bFrom.top;
+    const start = performance.now();
+    // вперёд: A сверху; назад: A снизу, B сверху
+    const aOnTop = !fail;
+
+    [elA, elB].forEach((el) => {
+      if (!el) return;
+      el.classList.add("swapping");
+      el.style.transition = "none";
+      el.style.willChange = "left, top, transform, filter";
+    });
+    if (elA) {
+      elA.classList.toggle("lifting", aOnTop);
+      elA.classList.toggle("passing-under", !aOnTop);
+      elA.style.zIndex = aOnTop ? "12" : "3";
+    }
+    if (elB) {
+      elB.classList.toggle("lifting", !aOnTop);
+      elB.classList.toggle("passing-under", aOnTop);
+      elB.style.zIndex = aOnTop ? "3" : "12";
+    }
+
+    return new Promise((resolve) => {
+      function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const e = easeInOutSmoother(t);
+        const pass = Math.sin(Math.PI * t);
+
+        if (elA) {
+          const top = aOnTop;
+          elA.style.left = aFrom.left + dxA * e + "px";
+          elA.style.top = aFrom.top + dyA * e + "px";
+          elA.style.transform = "scale(" + (top ? 1 + 0.18 * pass : 1 - 0.1 * pass).toFixed(4) + ")";
+          elA.style.zIndex = top ? "12" : "3";
+          if (top) {
+            elA.style.filter =
+              "saturate(" + (1 + 0.14 * pass).toFixed(3) + ") brightness(" + (1 + 0.1 * pass).toFixed(3) +
+              ") drop-shadow(0 " + (5 + 8 * pass).toFixed(1) + "px " + (6 + 8 * pass).toFixed(1) +
+              "px rgba(0,0,0," + (0.35 + 0.25 * pass).toFixed(2) + "))";
+          } else {
+            elA.style.filter =
+              "brightness(" + (0.82 + 0.18 * (1 - pass)).toFixed(3) + ") saturate(" + (0.85 + 0.15 * (1 - pass)).toFixed(3) + ")";
+          }
+        }
+        if (elB) {
+          const top = !aOnTop;
+          elB.style.left = bFrom.left + dxB * e + "px";
+          elB.style.top = bFrom.top + dyB * e + "px";
+          elB.style.transform = "scale(" + (top ? 1 + 0.14 * pass : 1 - 0.1 * pass).toFixed(4) + ")";
+          elB.style.zIndex = top ? "12" : "3";
+          if (top) {
+            elB.style.filter =
+              "saturate(" + (1 + 0.1 * pass).toFixed(3) + ") brightness(" + (1 + 0.08 * pass).toFixed(3) +
+              ") drop-shadow(0 " + (4 + 6 * pass).toFixed(1) + "px " + (5 + 6 * pass).toFixed(1) +
+              "px rgba(0,0,0," + (0.3 + 0.2 * pass).toFixed(2) + "))";
+          } else {
+            elB.style.filter =
+              "brightness(" + (0.82 + 0.18 * (1 - pass)).toFixed(3) + ") saturate(" + (0.85 + 0.15 * (1 - pass)).toFixed(3) + ")";
+          }
+        }
+
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          if (elA) {
+            elA.style.left = aTo.left + "px";
+            elA.style.top = aTo.top + "px";
+            settleGemEl(elA);
+          }
+          if (elB) {
+            elB.style.left = bTo.left + "px";
+            elB.style.top = bTo.top + "px";
+            settleGemEl(elB);
+          }
+          requestAnimationFrame(() => resolve());
+        }
+      }
+      requestAnimationFrame(frame);
+    });
   }
 
   function matchCenter(cells) {
@@ -1090,12 +1203,11 @@
       const pb = cellPos(b.x, b.y);
       [elA, elB].forEach((el) => {
         if (!el) return;
-        el.classList.remove("selected", "landing");
-        el.style.transition = "left .18s cubic-bezier(.22,.7,.2,1), top .18s cubic-bezier(.22,.7,.2,1)";
+        el.classList.remove("selected", "landing", "lifting");
       });
-      if (elA) { elA.style.left = pb.left + "px"; elA.style.top = pb.top + "px"; }
-      if (elB) { elB.style.left = pa.left + "px"; elB.style.top = pa.top + "px"; }
-      await wait(150);
+
+      // Вперёд: A «наезжает» на B с подъёмом, B уезжает на место A
+      await animatePirateSwap(elA, elB, pa, pb, "ok");
 
       const hadSpecial = board.specialAt(a.x, a.y) || board.specialAt(b.x, b.y);
       board.swap(a.x, a.y, b.x, b.y);
@@ -1105,6 +1217,8 @@
         elA.dataset.color = board.gems[b.x][b.y];
         elA.dataset.special = board.specials[b.x][b.y];
         elA.className = "gem" + specialClass(board.specials[b.x][b.y]);
+        elA.style.left = pb.left + "px";
+        elA.style.top = pb.top + "px";
       }
       if (elB) {
         elB.dataset.x = a.x;
@@ -1112,31 +1226,36 @@
         elB.dataset.color = board.gems[a.x][a.y];
         elB.dataset.special = board.specials[a.x][a.y];
         elB.className = "gem" + specialClass(board.specials[a.x][a.y]);
+        elB.style.left = pa.left + "px";
+        elB.style.top = pa.top + "px";
       }
       const groups = board.mergeGroups(board.findMatchGroups());
       const hasMatch = groups.length > 0;
 
       if (!hasMatch && !hadSpecial) {
         board.swap(a.x, a.y, b.x, b.y);
+        // Откат: снова навстречу, A сверху, B проходит под ним
+        await animatePirateSwap(elA, elB, pa, pb, "fail");
         if (elA) {
-          elA.style.left = pa.left + "px";
-          elA.style.top = pa.top + "px";
           elA.dataset.x = a.x;
           elA.dataset.y = a.y;
           elA.dataset.color = board.gems[a.x][a.y];
           elA.dataset.special = board.specials[a.x][a.y];
           elA.className = "gem" + specialClass(board.specials[a.x][a.y]);
+          elA.style.left = pa.left + "px";
+          elA.style.top = pa.top + "px";
+          elA.style.transform = "";
         }
         if (elB) {
-          elB.style.left = pb.left + "px";
-          elB.style.top = pb.top + "px";
           elB.dataset.x = b.x;
           elB.dataset.y = b.y;
           elB.dataset.color = board.gems[b.x][b.y];
           elB.dataset.special = board.specials[b.x][b.y];
           elB.className = "gem" + specialClass(board.specials[b.x][b.y]);
+          elB.style.left = pb.left + "px";
+          elB.style.top = pb.top + "px";
+          elB.style.transform = "";
         }
-        await wait(150);
         selected = null;
         highlight(null);
         state = "play";
@@ -1163,7 +1282,6 @@
           await collapse();
           if (goalsDone()) { await win(); return; }
         }
-        // каскад только для новых матчей после обвала — бонус уже израсходован
         await runCascade(null);
       } else if (hasMatch) {
         await runCascade(b);

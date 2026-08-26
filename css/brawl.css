@@ -1136,9 +1136,21 @@ body.has-vk-banner .shell {
   contain: layout style;
 }
 .gem.selected {
-  transform: scale(1.06);
+  transform: scale(1.08);
   z-index: 5;
   filter: saturate(1.25) brightness(1.2) drop-shadow(0 0 10px rgba(255,255,255,.7)) drop-shadow(0 4px 0 rgba(0,0,0,.28));
+}
+.gem.lifting {
+  z-index: 12 !important;
+  pointer-events: none;
+}
+.gem.passing-under {
+  z-index: 4 !important;
+  pointer-events: none;
+}
+.gem.swapping {
+  transition: none !important;
+  will-change: left, top, transform, filter;
 }
 .gem.charge {
   z-index: 6;
