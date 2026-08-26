@@ -947,9 +947,9 @@
   }
 
   function winTeaser(id) {
-    if (id === 1) return "Дальше — новое поле и комбо!";
-    if (id === 2) return "Дальше — деревянные ящики! Ломай их совпадениями рядом.";
-    if (id === 3) return "Впереди — новые формы поля и ещё сложнее!";
+    if (id === 1) return "Дальше — ромб, ящики и две цели сразу!";
+    if (id === 2) return "Дальше ещё плотнее: больше ящиков на всём поле.";
+    if (id === 3) return "Дальше — 5 цветов и ящики на большом ромбе!";
     if (id === 9) return "Босс арены совсем близко!";
     return "";
   }
@@ -1416,7 +1416,7 @@
     const res = await fetch("levels/pack.json?v=69");
     pack = await res.json();
     try {
-      const tutRes = await fetch("levels/tutorial.json?v=70");
+      const tutRes = await fetch("levels/tutorial.json?v=71");
       const tut = await tutRes.json();
       (tut.overrides || []).forEach((ov) => {
         const i = pack.levels.findIndex((l) => l.id === ov.id);
