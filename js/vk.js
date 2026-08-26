@@ -367,7 +367,7 @@
   }
 
   function fetchLeaderboard() {
-    return apiFetch("/api/leaderboard?limit=20");
+    return apiFetch("/api/leaderboard?limit=50");
   }
 
   function hasSignedLaunch() {

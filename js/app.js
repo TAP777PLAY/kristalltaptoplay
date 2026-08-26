@@ -389,7 +389,13 @@
       return;
     }
     const rows = mergeRatingRows(remote, meId);
-    const note = problem || (remote.total > 1 ? "" : "Пока только вы — другие появятся после своих побед");
+    const total = Number(remote.total) || rows.length;
+    const shown = Math.min(rows.length, 50);
+    let crowd = "";
+    if (total <= 1) crowd = "Пока только вы — другие появятся после своих побед";
+    else if (total <= 50) crowd = "Всего игроков в рейтинге: " + total;
+    else crowd = "Топ-" + shown + " из " + total + " игроков";
+    const note = problem || crowd;
     paintRatings(rows, remote.me ? remote.me.id : meId, note);
   }
 

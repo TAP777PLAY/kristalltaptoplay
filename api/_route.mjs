@@ -74,7 +74,7 @@ export async function leaderboard(req, res) {
   const url = new URL(req.url || "/", "https://vercel.local");
   const launch = (req.headers && req.headers["x-vk-launch"]) || url.searchParams.get("launch") || "";
   const verified = launch ? verifyLaunch(launch) : { ok: false };
-  const limit = clampInt(url.searchParams.get("limit") || 20, 1, 50);
+  const limit = clampInt(url.searchParams.get("limit") || 50, 1, 50);
   const users = await loadUsers();
   json(res, 200, leaderboardPayload(users, verified.ok ? verified.userId : 0, limit), originOf(req));
 }
@@ -99,7 +99,7 @@ export async function score(req, res) {
     next = await pushVkEvents(next).catch(() => next);
     await saveUser(next);
     users[verified.userId] = next;
-    json(res, 200, leaderboardPayload(users, verified.userId, 20), originOf(req));
+    json(res, 200, leaderboardPayload(users, verified.userId, 50), originOf(req));
   } catch (err) {
     json(res, 500, { ok: false, error: "save" }, originOf(req));
   }

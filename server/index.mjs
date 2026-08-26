@@ -306,13 +306,13 @@ async function handleScore(req, res) {
   store.users[verified.userId] = next;
   await saveStore();
   pushVkEvents(next).catch(() => {});
-  send(res, 200, leaderboardPayload(verified.userId, 20));
+  send(res, 200, leaderboardPayload(verified.userId, 50));
 }
 
 function handleLeaderboard(req, res, url) {
   const launch = req.headers["x-vk-launch"] || url.searchParams.get("launch") || "";
   const verified = launch ? verifyLaunch(launch) : { ok: false };
-  const limit = clampInt(url.searchParams.get("limit") || 20, 1, 50);
+  const limit = clampInt(url.searchParams.get("limit") || 50, 1, 50);
   send(res, 200, leaderboardPayload(verified.ok ? verified.userId : 0, limit));
 }
 
