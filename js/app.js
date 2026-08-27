@@ -1534,7 +1534,7 @@
     const res = await fetch("levels/pack.json?v=69");
     pack = await res.json();
     try {
-      const tutRes = await fetch("levels/tutorial.json?v=71");
+      const tutRes = await fetch("levels/tutorial.json?v=78");
       const tut = await tutRes.json();
       (tut.overrides || []).forEach((ov) => {
         const i = pack.levels.findIndex((l) => l.id === ov.id);
